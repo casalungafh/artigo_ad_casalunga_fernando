@@ -1,0 +1,139 @@
+---
+title: Análise fatorial e Regressão Linear - a importância da aplicabilidade conjunta de duas técnicas de análise de dados.
+author: 
+  - name: Fernando Henrique Casalunga
+    email: fernandocasalunga@gmail.com
+    affiliation: Universidade Federal de Pernambuco
+    footnote: CASALUNGA, F. H.
+address:
+  - code: Universidade Federal de Pernambuco
+    address: Departamento de Ciencia Politica (UFPE)
+    
+
+journal: ""
+date: "`r Sys.Date()`"
+output: rticles::elsevier_article
+
+references:
+- id: Figueiredo1
+  title: O que fazer e o que não fazem com a regressão - pressupostos e aplicações do modelo linear de mínimos quadrados ordinários (MQO).
+  author: 
+  - family: FIGUEIREDO
+    given: Dalson
+  container - title: Politica Hoje
+  Volume: 20
+  issue: 1
+  publisher:
+  type: article-journal
+  issued:
+    year: 2011
+
+- id: Figueiredo2
+  title: Análise fatorial garantida ou seu dinheiro de volta - uma introdução à redução de dados.
+  author: 
+  - family: FIGUEIREDO
+    given: Dalson
+  container - title: Revista Eletrônica de Ciência Política
+  Volume: 5
+  issue: 2
+  publisher:
+  type: article-journal
+  issued:
+    year: 2014
+
+
+abstract: |
+  O artigo utiliza metodologia quantitativa exploratória para analisar o banco de dados do 'Quality of Government'. Utilizamos o Basic Dataset (2016) para apresentar a aplicação de quatro modelos multivariados que combinam duas técnicas de análise de dados, fatorial e regressão, com o objetivo de verificar a validade da inferência causal destes modelos frente aos pressupostos indicados pela literatura. Paralelamente, demonstra como a combinação dessas duas técnicas auxilia o pesquisador a identificar de forma robusta os efeitos causais independentes que incidem sobre o fenômeno de interesse do pesquisador, em nosso caso a liberdade civil em Estados Contemporâneos.
+
+
+---
+
+Introdução
+============================
+
+O artigo explora os dados do "The Quality of Government Basic Dataset" (2016) [^1] com base em nosso desenho de pesquisa, utilizamos duas técnicas de análise de dados quantitativos, a análise fatorial e a regressão de mínimos quadrados ordinários (MQO) [^2] para mensurar o efeito de algumas variáveis independentes que acreditamos poder explicar como se comporta o fenômeno da liberdade civil Estados Contemporâneos.
+
+[^1]: The Quality of Government Basic Dataset, version Jan16. University of Gothenburg: The Quality of Government Institute. Disponível em http: // www.qog.pol.gu.sedoi:10.18157/QoGBasJan16> acesso em 20.12.2018.
+
+[^2]: Para um maior aprofundamento nos pressupostos das técnicas utilizadas ver também: "Análise Fatorial: Uma introdução à redução de dados" rev. eletrônica de Ciência Política V. 5, nº2 (2014); "O que fazer com a regressão: pressupostos e aplicações do modelo linear (MQO)" rev. eletrônica Política Hoje, vol. 20, n.1 (2011).
+
+No que diz respeito ao tamanho da amostra, durante o planejamento da mensuração das variáveis optou-se por trabalhar com quatro modelos, dois deles com amostras maiores (N = 132) (1 e 3) e outros dois (2 e 4) com amostras menores (N = 51). Para efeito de comparação analisamos os resultados identificados em cada um desses modelos de acordo com dez pressupostos dos modelos de regressão indicados por Figueiredo et. al (2011) para apresentar aquele que melhor se ajusta à explicação de nosso fenômeno de interesse, a liberdade civil.
+Destarte, a unidade de análise deste estudo são os países, os modelos 1 e 3 possuem informação para 51 deles, enquanto que os modelos 2 e 4 contam com 132 observações. Esses modelos se diferenciam de acordo com a variação nos casos omitidos, que ocorre devido à ausência de dados para uma de nossas variáveis independentes 'confiança no governo' medida através de pesquisas de opinião realizadas pelo World Values Surveys em 76 países.
+
+Outrossim, os modelos 1 e 2 diferem dos modelos 3 e 4 no que tange a variável dependente utilizada para mensurar a liberdade civil. Nos modelos 1 e 2 mensuramos os efeitos das variáveis independentes sobre a liberdade civil tomada como variável dependente categórica com valores variando de 1 à 7 -onde 1 representa os países com maior e 7 aqueles com menor liberdade civil-, já com os modelos 3 e 4 mensuramos os efeitos das variáveis independentes sobre a liberdade civil enquanto variável dependente contínua -com valores variando de 1 à 10, sendo 1 o valor atribuído aos países com baixo e 10 aqueles com altos níveis de liberdade civil-.
+Desse modo, o artigo está dividido em três seções, a primeira apresenta passo a passo a construção do índice inclusividade democrática (IDI), composto por duas variáveis latentes3 eficiência institucional e pluralidade étnico-linguística transformadas com a técnica de análise fatorial; a segunda seção utiliza os dois indicadores fatoriais que compõem nosso construto como variáveis independentes em quatro modelos de regressão linear multivariado, aos quais acrescentamos mais três variáveis que acreditamos exercer efeito interveniente em nossa variável de interesse, a liberdade civil; a terceira seção sumariza os resultados dos quatro modelos e a quarta seção apresenta uma breve discussão conclusiva.
+No que tange a transparência e replicabilidade deste estudo, todas as análises estatísticas foram realizadas com o auxílio do software RSTUDIO [^4] para análise de dados estatísticos, as rotinas computacionais foram devidamente reportadas através da organização do protocolo TIER5, e, os dados para replicação dos resultados foram disponibilizados no repositório Dataverse da universidade de Harvard. Optamos, ainda, por priorizar a apresentação da viabilidade dos construtos e os resultados dos modelos através de interface gráfica, pois, acreditamos que dessa forma facilitamos a compreensão do leitor de nossos resultados, todas as tabelas adjacentes aos resultados constam em anexo.
+
+[^4]: RSTUDIO, versão 1.1.463. Disponível em <https://www.rstudio.com/products/> Acesso em 15.12.2018.
+
+Análise
+============
+
+abaixo:
+
+```{r biblioteca, echo=FALSE, message=FALSE, warning=FALSE,} 
+# Acesso a biblioteca
+if(require(stargazer) == F) install.packages('stargazer'); require(stargazer)
+if(require(readr) == F) install.packages('readr'); require(readr)
+if(require(ggplot2) == F) install.packages('ggplot2'); require(ggplot2)
+if(require(car) == F) install.packages('car'); require(car)
+if(require(MASS) == F) install.packages('MASS'); require(MASS)
+if(require(xtable) == F) install.packages('xtable'); require(xtable)
+if(require(lmtest) == F) install.packages('lmtest'); require(lmtest)
+
+# Importando banco de dados em formato .csv - modelo 1
+library(readr)
+analysis_data <- read_delim("analysis_data.csv", 
+                            ";", escape_double = FALSE, trim_ws = TRUE)
+
+
+```
+
+
+
+```{r analise, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# Modelo de regressao linear multivariado 1
+colnames(analysis_data) <- c("Civil Liberties 1", "Confidence in Government", "Favoritism in decisions of government officials",
+                             "Accountability", "Control of Corruption", "Ethical behavior of firms", "Property rights", 
+                             "Political Stability", "Functioning of government", "Cultural Diversity", 
+                             "Ethnic Fractionalization", "Language Fractionalization", 
+                             "Institucional Efficiency", "Ethnic-linguistic Plurality")
+
+modelo_1 <- lm(`Civil Liberties 1` ~ `Confidence in Government` +
+                 `Favoritism in decisions of government officials` + 
+                 `Accountability` + 
+                 `Institucional Eficiency` + 
+                 `Ethnic-linguistic Plurality` 
+               data = analysis_data)
+
+# Modelo de regressao linear multivariado 1
+modelo_1 <- lm(fh_cl ~ wvs_confgov +
+                 wef_fgo + 
+                 diat_ati + 
+                 fac1 + 
+                 fac2 , 
+               data = analysis_data)
+
+# Visualizacao do modelo 1
+stargazer(modelo_1, type = "latex", style = "aer", p.auto=FALSE, header = FALSE)
+
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(analysis_data, aes(x = fac2, y = fac1)) +
+  geom_point() +
+  geom_vline(xintercept = 0, size =1, linetype = "dashed") +
+  geom_hline(yintercept = 0, size =1, linetype = "dashed") +
+  labs(x = "Ethnic-linguistic Plurality", y = "Institutional Efficiency")
+```
+
+```{r, eval=FALSE, echo=FALSE}
+ggplot(analysis_data, aes(x = fac1, y = fac2)) +
+  geom_point()+
+  geom_text(aes(label = analysis_data$NOMEDOPAIS)) +
+geom_smooth(method='lm')
+```
+
+References {#references .unnumbered}
+==========
