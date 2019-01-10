@@ -48,30 +48,13 @@ abstract: |
 
 ---
 
-Introdução
-============================
-
-O artigo explora os dados do "The Quality of Government Basic Dataset" (2016) [^1] com base em nosso desenho de pesquisa, utilizamos duas técnicas de análise de dados quantitativos, a análise fatorial e a regressão de mínimos quadrados ordinários (MQO) [^2] para mensurar o efeito de algumas variáveis independentes que acreditamos poder explicar como se comporta o fenômeno da liberdade civil Estados Contemporâneos.
-
-[^1]: The Quality of Government Basic Dataset, version Jan16. University of Gothenburg: The Quality of Government Institute. Disponível em http: // www.qog.pol.gu.sedoi:10.18157/QoGBasJan16> acesso em 20.12.2018.
-
-[^2]: Para um maior aprofundamento nos pressupostos das técnicas utilizadas ver também: "Análise Fatorial: Uma introdução à redução de dados" rev. eletrônica de Ciência Política V. 5, nº2 (2014); "O que fazer com a regressão: pressupostos e aplicações do modelo linear (MQO)" rev. eletrônica Política Hoje, vol. 20, n.1 (2011).
-
-No que diz respeito ao tamanho da amostra, durante o planejamento da mensuração das variáveis optou-se por trabalhar com quatro modelos, dois deles com amostras maiores (N = 132) (1 e 3) e outros dois (2 e 4) com amostras menores (N = 51). Para efeito de comparação analisamos os resultados identificados em cada um desses modelos de acordo com dez pressupostos dos modelos de regressão indicados por Figueiredo et. al (2011) para apresentar aquele que melhor se ajusta à explicação de nosso fenômeno de interesse, a liberdade civil.
-Destarte, a unidade de análise deste estudo são os países, os modelos 1 e 3 possuem informação para 51 deles, enquanto que os modelos 2 e 4 contam com 132 observações. Esses modelos se diferenciam de acordo com a variação nos casos omitidos, que ocorre devido à ausência de dados para uma de nossas variáveis independentes 'confiança no governo' medida através de pesquisas de opinião realizadas pelo World Values Surveys em 76 países.
-
-Outrossim, os modelos 1 e 2 diferem dos modelos 3 e 4 no que tange a variável dependente utilizada para mensurar a liberdade civil. Nos modelos 1 e 2 mensuramos os efeitos das variáveis independentes sobre a liberdade civil tomada como variável dependente categórica com valores variando de 1 à 7 -onde 1 representa os países com maior e 7 aqueles com menor liberdade civil-, já com os modelos 3 e 4 mensuramos os efeitos das variáveis independentes sobre a liberdade civil enquanto variável dependente contínua -com valores variando de 1 à 10, sendo 1 o valor atribuído aos países com baixo e 10 aqueles com altos níveis de liberdade civil-.
-Desse modo, o artigo está dividido em três seções, a primeira apresenta passo a passo a construção do índice inclusividade democrática (IDI), composto por duas variáveis latentes3 eficiência institucional e pluralidade étnico-linguística transformadas com a técnica de análise fatorial; a segunda seção utiliza os dois indicadores fatoriais que compõem nosso construto como variáveis independentes em quatro modelos de regressão linear multivariado, aos quais acrescentamos mais três variáveis que acreditamos exercer efeito interveniente em nossa variável de interesse, a liberdade civil; a terceira seção sumariza os resultados dos quatro modelos e a quarta seção apresenta uma breve discussão conclusiva.
-No que tange a transparência e replicabilidade deste estudo, todas as análises estatísticas foram realizadas com o auxílio do software RSTUDIO [^4] para análise de dados estatísticos, as rotinas computacionais foram devidamente reportadas através da organização do protocolo TIER5, e, os dados para replicação dos resultados foram disponibilizados no repositório Dataverse da universidade de Harvard. Optamos, ainda, por priorizar a apresentação da viabilidade dos construtos e os resultados dos modelos através de interface gráfica, pois, acreditamos que dessa forma facilitamos a compreensão do leitor de nossos resultados, todas as tabelas adjacentes aos resultados constam em anexo.
-
-[^4]: RSTUDIO, versão 1.1.463. Disponível em <https://www.rstudio.com/products/> Acesso em 15.12.2018.
-
 Análise
 ============
 
 abaixo:
 
-```{r biblioteca, echo=FALSE, message=FALSE, warning=FALSE,} 
+```{r biblioteca, echo=FALSE, message=FALSE, warning=FALSE} 
+
 # Acesso a biblioteca
 if(require(stargazer) == F) install.packages('stargazer'); require(stargazer)
 if(require(readr) == F) install.packages('readr'); require(readr)
@@ -86,54 +69,771 @@ library(readr)
 analysis_data <- read_delim("analysis_data.csv", 
                             ";", escape_double = FALSE, trim_ws = TRUE)
 
+# Importando banco de dados em formato .csv - modelo 2
+library(readr)
+analysis_data_2 <- read_delim("analysis_data_2.csv", 
+                              ";", escape_double = FALSE, trim_ws = TRUE)
+
+# Importando banco de dados em formato .csv - modelo 3
+library(readr)
+analysis_data_3 <- read_delim("analysis_data_3.csv", 
+                              ";", escape_double = FALSE, trim_ws = TRUE)
+
+# Importando banco de dados em formato .csv - modelo 4
+library(readr)
+analysis_data_4 <- read_delim("analysis_data_4.csv", 
+                              ";", escape_double = FALSE, trim_ws = TRUE)
+
+```
+
+
+```{r base, eval= FALSE, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+
+# Renomear as variáveis da base de dados modelo 1 
+colnames(analysis_data) <- c("Civil Liberties 1", "Confidence in Government",
+                             "Favoritism in decisions of government officials",
+                             "Accountability", "Control of Corruption", 
+                             "Ethical behavior of firms", "Property rights", 
+                             "Political Stability", "Functioning of government",
+                             "Cultural Diversity", 
+                             "Ethnic Fractionalization", "Language Fractionalization", 
+                             "Institucional Efficiency", "Ethnic_linguistic Plurality")
+
+write.table(analysis_data, "analysis_data.csv", sep = ";", row.names = F)
+
+#============
+#Renomear as variáveis da base de dados modelo 2 
+colnames(analysis_data_2) <- c("Civil Liberties 1", "Confidence in Government",
+                             "Favoritism in decisions of government officials",
+                             "Accountability", "Control of Corruption", 
+                             "Ethical behavior of firms", "Property rights", 
+                             "Political Stability", "Functioning of government",
+                             "Cultural Diversity", 
+                             "Ethnic Fractionalization", "Language Fractionalization", 
+                             "Institucional Efficiency", "Ethnic_linguistic Plurality")
+
+write.table(analysis_data_2, "analysis_data_2.csv", sep = ";", row.names = F)
+
+#============
+#Renomear as variáveis da base de dados modelo 3 
+colnames(analysis_data_3) <- c("Civil Liberties 2", "Confidence in Government",
+                             "Favoritism in decisions of government officials",
+                             "Accountability", "Control of Corruption", 
+                             "Ethical behavior of firms", "Property rights", 
+                             "Political Stability", "Functioning of government",
+                             "Cultural Diversity", 
+                             "Ethnic Fractionalization", "Language Fractionalization", 
+                             "Institucional Efficiency", "Ethnic_linguistic Plurality")
+
+write.table(analysis_data_3, "analysis_data_3.csv", sep = ";", row.names = F)
+
+#============
+#Renomear as variáveis da base de dados modelo 4
+colnames(analysis_data_4) <- c("Civil Liberties 2", "Confidence in Government",
+                             "Favoritism in decisions of government officials",
+                             "Accountability", "Control of Corruption", 
+                             "Ethical behavior of firms", "Property rights", 
+                             "Political Stability", "Functioning of government",
+                             "Cultural Diversity", 
+                             "Ethnic Fractionalization", "Language Fractionalization", 
+                             "Institucional Efficiency", "Ethnic_linguistic Plurality")
+
+write.table(analysis_data_4, "analysis_data_4.csv", sep = ";", row.names = F)
+
+```
+
+
+
+Introdução
+============================
+
+O artigo explora os dados do "The Quality of Government Basic Dataset" (2016) [^1] com base em nosso desenho de pesquisa, utilizamos duas técnicas de análise de dados quantitativos, a análise fatorial e a regressão de mínimos quadrados ordinários (MQO) [^2] para mensurar o efeito de algumas variáveis independentes que acreditamos poder explicar como se comporta o fenômeno da liberdade civil Estados Contemporâneos.
+
+[^1]: The Quality of Government Basic Dataset, version Jan16. University of Gothenburg: The Quality of Government Institute. Disponível em http: // www.qog.pol.gu.sedoi:10.18157/QoGBasJan16> acesso em 20.12.2018.
+
+[^2]: Para um maior aprofundamento nos pressupostos das técnicas utilizadas ver também: "Análise Fatorial: Uma introdução à redução de dados" rev. eletrônica de Ciência Política V. 5, nº2 (2014); "O que fazer com a regressão: pressupostos e aplicações do modelo linear (MQO)" rev. eletrônica Política Hoje, vol. 20, n.1 (2011).
+
+No que diz respeito ao tamanho da amostra, durante o planejamento da mensuração das variáveis optou-se por trabalhar com quatro modelos, dois deles com amostras maiores (N = 132) (1 e 3) e outros dois (2 e 4) com amostras menores (N = 51). Para efeito de comparação analisamos os resultados identificados em cada um desses modelos de acordo com dez pressupostos dos modelos de regressão indicados por Figueiredo et. al (2011) para apresentar aquele que melhor se ajusta à explicação de nosso fenômeno de interesse, a liberdade civil.
+Destarte, a unidade de análise deste estudo são os países, os modelos 1 e 3 possuem informação para 51 deles, enquanto que os modelos 2 e 4 contam com 132 observações. Esses modelos se diferenciam de acordo com a variação nos casos omitidos, que ocorre devido à ausência de dados para uma de nossas variáveis independentes 'confiança no governo' medida através de pesquisas de opinião realizadas pelo World Values Surveys em 76 países.
+
+Outrossim, os modelos 1 e 2 diferem dos modelos 3 e 4 no que tange a variável dependente utilizada para mensurar a liberdade civil. Nos modelos 1 e 2 mensuramos os efeitos das variáveis independentes sobre a liberdade civil tomada como variável dependente categórica com valores variando de 1 à 7 -onde 1 representa os países com maior e 7 aqueles com menor liberdade civil-, já com os modelos 3 e 4 mensuramos os efeitos das variáveis independentes sobre a liberdade civil enquanto variável dependente contínua -com valores variando de 1 à 10, sendo 1 o valor atribuído aos países com baixo e 10 aqueles com altos níveis de liberdade civil-.
+Desse modo, o artigo está dividido em três seções, a primeira apresenta passo a passo a construção do índice inclusividade democrática (IDI), composto por duas variáveis latentes3 eficiência institucional e pluralidade étnico-linguística transformadas com a técnica de análise fatorial; a segunda seção utiliza os dois indicadores fatoriais que compõem nosso construto como variáveis independentes em quatro modelos de regressão linear multivariado, aos quais acrescentamos mais três variáveis que acreditamos exercer efeito interveniente em nossa variável de interesse, a liberdade civil; a terceira seção sumariza os resultados dos quatro modelos e a quarta seção apresenta uma breve discussão conclusiva.
+No que tange a transparência e replicabilidade deste estudo, todas as análises estatísticas foram realizadas com o auxílio do software RSTUDIO [^4] para análise de dados estatísticos, as rotinas computacionais foram devidamente reportadas através da organização do protocolo TIER[^5], e, os dados para replicação dos resultados foram disponibilizados no repositório Dataverse da universidade de Harvard. Optamos, ainda, por priorizar a apresentação da viabilidade dos construtos e os resultados dos modelos através de interface gráfica, pois, acreditamos que dessa forma facilitamos a compreensão do leitor de nossos resultados, todas as tabelas adjacentes aos resultados constam em anexo.
+
+[^4]: RSTUDIO, versão 1.1.463. Disponível em <https://www.rstudio.com/products/> Acesso em 15.12.2018.
+[^5]: The TIER Documentation Protocol provides instructions for assembling a set of electronic files that document all the steps of data processing and analysis you conduct for an empirical research paper. Disponível em <https://www.haverford.edu/project-tier/protocol-v2> Acesso em 16.07.2018
+
+## Seção 1: Transformação dos parâmetros independentes em variáveis latentes.
+
+A análise deste estudo segue um padrão exploratório dos dados, técnica recomendada para pesquisas em estágios iniciais, de acordo com essa perspectiva, as seguintes variáveis multicolineares foram identificadas: X1) controle da corrupção; X2) comportamento ético das firmas; X3) direito de propriedade; X4) estabilidade política; X5) funcionamento do governo; X6) diversidade cultural; X7) fracionalização étnica; e X8) fracionalização linguística. Devido ao alto grau de correlação existente entre estas variáveis, é recomendável a transformação de seus componentes principais em variáveis latentes, compostas pela informação principal presente em cada uma delas de forma sintética, a técnica utilizada para realizar a transformação é denominada análise fatorial[^6], e será desenvolvida a seguir.
+
+[^6]: A análise fatorial enquanto técnica de redução dados é utilizada para construção de índices que sintetizam a informação de uma grande quantidade de variáveis em um número menor de fatores/componentes. O padrão de correlação observado entre as variáveis originais é condensado em uma única variável que contêm os fatores em comum entre elas (FIGUEIREDO, 2011).
+
+Destarte, a construção dos fatores depende do nível de correlação entre as variáveis independentes selecionadas. Isso porque a análise fatorial utiliza a variância comum entre as variáveis correlacionadas (X1, X2, X3... X8) para construir um indicador fatorial que contêm informação de todas as variáveis observadas divididas em fatores latentes, assim, com essa técnica estimamos combinações lineares das variáveis originais a partir da variância no padrão de correlação entre as variáveis.
+Em relação à correlação entre as variáveis independentes que compõem os fatores que serão construídos, a literatura recomenda que a maior parte dos coeficientes seja superior a (R = 0.300), independente do sinal, desta forma, "quanto maior o nível de correlação entre as variáveis mais adequadas serão as diferentes técnicas de redução de dados" (TABACHNICK e FIDELL, 2007, apud FIGUEIREDO, 2014, p. 190).[^7] O gráfico 1 representa o alto padrão de correlação entre as variáveis, indicando que a matriz de dados é adequada à utilização da análise fatorial.
+
+[^7]: No planejamento da análise fatorial, a literatura indica que sejam observados os seguintes estágios: a) definição da dimensão teórica da variável latente; b) identificação das variáveis observadas causadas pela variável latente, c) coleta dos dados; d) transformação computacional; e) discussão sobre os resultados (FIGUEIREDO, et. al., 2014, p. 187).
+
+```{r} 
+
+# Gerar matriz de correlacao - modelo 1
+cormat <- cor(analysis_data[, -c(1:4)])
+melted_cormat <- melt(cormat)
+# Grafico da matriz de correlacao - modelo 1
+ggplot(data = melted_cormat, 
+       aes(x=`Var1`, y=`Var2`, fill=value)) +
+  geom_tile()
+
+```
+
+Em anexo, encontram-se de forma detalhada a estatística descritiva das variáveis independentes (X1, X2... X8) utilizadas para compor os fatores, as tabela 1 e 2 apresentam, os indicadores que foram utilizados na construção dos indicadores fatoriais 'eficiência institucional' (fator 1) e 'pluralidade étnico-linguística (fator 2), as tabelas 4 e 5 apresentam, respectivamente, as estatísticas de adequação da amostra e as comunalidades.
+A tabela 4 apresenta a estatística de ajuste utilizada (Kaiser-Meyer-Olkin - KMO) que indica a proporção da variância atribuída aos fatores que serão transformados, o indicador varia de 0 à 1, sendo que quanto maior o valor assumido mais precisa será a aplicação da análise fatorial, em nossa análise o KMO = 0.860 indica que podemos prosseguir com a aplicação da técnica.
+A seguir, o gráfico 2 apresenta a variância total de cada fator que será transformado, a distrbuição das variáveis e o percentual acumulado de cada variável extraído para construção dos fatores, o gráfico 3, contém a informação em um diagrama de sedimentação (scree plot), ambos representam de forma objetiva quantos fatores devem ser extraídos, a linha pontilhada sinaliza o nível de corte da regra de Kaiser, a queda abrupta sinaliza para transformação das variáveis independentes em dois construtos.
+
+```{r}
+
+# Analise Fatorial (PCA)
+#=======================================
+# Modelo 1
+pca1 <- princomp(analysis_data[, -c(1:4)], scores=TRUE, cor=TRUE)
+# Sumario do PCA
+summary(pca1)
+
+# Carregamento dos componentes principais
+loadings(pca1)
+
+# Verificando Quantos fatores devemos utilizar
+plot(pca1) # cotovelo em 2 fatores
+
+# Selecionando os 2 fatores - modelo 1
+analysis_data$fac1 <- pca1$scores[,1]
+analysis_data$fac2 <- pca1$scores[,2]
+
+#Scree plot of eigenvalues
+screeplot(pca1, type="line", main="Scree Plot")
+abline(1,0, lty=2)
+
+```
+
+
+Desse modo, os dois fatores que serão construídos serão compostos por dois componentes, o primeiro representando 51% e o segundo 28% da variância total das variáveis independentes. Juntos os dois valores acumulados somam 80% da informação total das variáveis independentes. Em anexo, a tabela 6 sumariza os resultados da variância acumulada.
+A partir da forma como os componentes extraídos e as variáveis observadas se relacionam, o próximo passo será produzir uma matriz de componente rotacionada. A rotação procura facilitar a interpretação da solução observada sem alterar as suas propriedades matemáticas originais (TABACHNICK e FIDELL, 2007, apud, FIGUEIREDO, 2014, p. 191), a rotação ortogonal assume que a correlação entre as dimensões é zero, indicando que elas são estatisticamente independentes (ortogonais).
+
+```{r}
+
+# Rotacao varimax(pca1$rotation) 
+# Analise fatorial 
+fatorial_varimax <- factanal(analysis_data[, -c(1:4,13:14)],factors=2, rotation="varimax", scores="regression")
+
+```
+
+Ao aplicar a técnica de análise fatorial determinamos o tipo de rotação (ortogonal varimax), e a quantidade de fatores que devem ser extraídos, nesse caso, dois. Em anexo, a tabela 7 apresenta a matriz de componente rotativa dos dois componentes, a unicidade das variáveis, o grau de liberdade e o teste chi-quadrado da análise fatorial, a tabela 8 apresenta a variação média dos fatores criados, Eficiência Institucional e Pluralidade Étnico-linguística que contêm informação para 132 países do banco de dados QOG.
+De posse dos fatores transformados, eficiência institucional e pluralidade étnico-linguística passam a compor um construto, ou indicador que denominamos como Índice de Democracia Inclusiva (IDI). Para melhor identificarmos a operacionalização destes fatores em nosso construto, representamos através da interface gráfica a dispersão dos 132 países de nossa base de dados de acordo com as duas variáveis latentes transformadas.
+
+```{r, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Descritivo dos fatores 1 e 2 
+summary(analysis_data$`Institucional Efficiency`)
+summary(analysis_data$`Ethnic_linguistic Plurality`)
+
+# Biplot do valor das variaveis
+biplot(pca1)
+
+ggplot(analysis_data, aes(x = `Ethnic_linguistic Plurality`, y = `Institucional Efficiency`)) +
+  geom_point() +
+  geom_vline(xintercept = 0, size =1, linetype = "dashed") +
+  geom_hline(yintercept = 0, size =1, linetype = "dashed") +
+  labs(x = "Ethnic_linguistic Plurality", y = "Institutional Efficiency")
+
+```
+
+```{r, eval=FALSE, echo=FALSE}
+ggplot(analysis_data, aes(x = Institucional Efficiency, y = Ethnic-linguistic Plurality)) +
+  geom_point()+
+  geom_text(aes(label = analysis_data$NOMEDOPAIS)) +
+geom_smooth(method='lm')
+```
+
+Desta forma, podemos identificar as unidades de análises por quadrante. No quadrante um encontram-se países com baixa eficiência institucional e alta pluralidade étnico-linguística (elencar); já o quadrante 2 apresenta países com alta pluralidade étnico-linguística e alta eficiência institucional (elencar); no quadrante 3 encontram-se países com baixa eficiência institucional e baixa pluralidade étnico-linguística,(elencar); e o quadrante 4 países com alta eficiência institucional e baixa pluralidade étnico-linguística (elencar).
+Na seção seguinte, iremos utilizar os dois fatores transformados nesta seção como variáveis independentes em quatro modelos de regressão multivariados, a fim de mensurar os efeitos produzidos sobre nossa variável de interesse, a liberdade civil, nos países da base de dados do QOG (2016).
+
+
+## Seção 2 - Construção de modelos de Regressão Linear Multivariada (MQO)
+
+
+A estrutura básica de um modelo de regressão linear é dada pela variação média de uma variável dependente (Y) de acordo com a variação média das demais variáveis independentes. A literatura orienta que para utilizar o modelo de mínimos quadrados ordinários (MQO) o pesquisador deve respeitar uma série de recomendações que ajudam a aumentar a validade e confiança dos resultados, a atenção aos pressupostos dos modelos é fulcral, uma vez que, a análise de regressão tornou-se o modelo estatístico mais usualmente empregado na ciência política contemporânea (FIGUEIREDO et. al, 2011, p. 46).
+As dez recomendações dos modelos MQO seguem na esteira dos postulados de Lewis-Beck (1980) e Kennedy (2009), a primeira diz que a relação entre a variável dependente e as variáveis independentes deve ser linear, a segunda previne contra erros de mensuração das variáveis, a terceira propõe que a média do termo de erro deve ser igual a zero, a quarta que o termo de erro seja constante de acordo com a distribuição dos valores da variável independente, a quinta que não deve haver autocorrelação entre os termos de erro, a sexta que a variável independente não deve estar correlacionada com o termo de erro, a sétima que nenhuma variável relevante para explicar Y foi excluída do modelo, o oitavo que haja ausência de alta correlação entre as variáveis independentes, o nono que a distribuição do termo de erro seja normal, e o décimo que se tenha uma adequada proporção entre número de casos e de parâmetros estimados (FIGUEIREDO, 2011, p. 52).
+No que diz respeito à aplicação do modelo de regressão linear, a oitava indicação é salutar ao indicar que não devemos utilizar variáveis altamente correlacionadas entre si, a chamada multicolinearidade ocorre quando se observa altos níveis de correlação entre mais de duas variáveis independentes, seu principal efeito é afetar a eficiência das estimativas, nesse caso, tendemos a sobrestimar a magnitude dos erros padrões dos coeficientes de regressão o que acaba prejudicando a confiabilidade dos testes de significância (p-valor) e intervalos de confiança (FIGUEIREDO, 2011, p. 57).
+No que tange o objetivo deste estudo, demonstrar a importância da utilização conjunta entre as técnicas de análise fatorial e regressão linear, de acordo com as indicações, fica evidente a importância de técnicas de redução da dimensionalidade dos dados, isso porque com a utilização da análise fatorial o pesquisador é capaz de transformar variáveis independentes altamente correlacionadas em construtos latentes que carregam a informação condensada das variáveis originais, o que o ajuda a construir modelos mais robustos que contêm grande volume de informação mas que ao mesmo tempo contornam o problema da multicolinearidade. Por essa razão, ressaltamos a importância da combinação entre as técnicas de análise fatorial e regressão linear, a desvantagem desse procedimento é a impossibilidade de observar o efeito individual de cada variável explicativa do modelo (FIGUEIREDO, 2011, p. 56).
+Note-se também que, além dos problemas referentes às variáveis independentes multicolineares, a utilização de amostras pequenas pode igualmente afetar os resultados dos modelos de regressão linear, para testar esse pressuposto utilizamos modelos com 51 e 132 casos.
+Dessa forma, recomenda-se que o pesquisador elabore modelos capazes de minimizar a informação das variáveis e maximizar a quantidade de observações, a atenção a estes procedimentos ajuda a elevar o grau de confiabilidade e a possibilidade de generalização dos resultados.
+De modo específico, em modelos de regressão a variável dependente (Y) representa o fenômeno que procuramos compreender, explicar ou predizer. A constante, alfa, representa a melhor estimativa de (Y) na ausência de variáveis independentes. As variáveis independentes estão representadas por X1...+X5, os coeficientes (??) representam a variação média observada em (Y) ao se elevar uma determinada variável independente em uma unidade, mantendo as demais constantes. Por exemplo, ??1 representa a variação observada em (Y) ao elevarmos X1 em uma unidade, mantendo as demais variáveis constantes. O erro do modelo, ??, representa tudo aquilo que pode afetar (Y), mas que não foi incluído no modelo. Para fixar a interpretação, optamos por apresentar a equação do modelo matemático:
+
+Y = ?? + ??1x1+??2x2+ ??3x3+ ??4x4 +??5x5 + E
+
+Neste estudo, os modelos 1 e 2 utilizam uma variável dependente categórica, já para os modelos 3 e 4 emprega-se uma variável dependente contínua para efeito de comparação, isso porque, a literatura indica que devemos optar preferencialmente pelo uso de variáveis dependentes quantitativas, discretas ou contínuas (FIGUEIREDO, 2011, p. 61).
+Em anexo (2) descrevemos a mensuração da variável dependente e das demais variáveis independentes utilizadas no modelo para explicar nosso fenômeno de interesse, a liberdade civil. A tabela 9 apresenta a variável dependente (Y) que o modelo pretende explicar a partir das variáveis independentes (X1, X2,.. + X5). Outrossim, o exemplo hipotético procura compreender o impacto das variáveis independentes (X1, X2... + X5) sobre a variável dependente (Y).
+Os modelos aplicados procuram, portanto, compreender o efeito causal sobre a liberdade civil produzido pela variação da confiança da opinião pública no governo, do favoritismo em decisões oficiais do governo, da prestação de contas, da eficiência institucional e da pluralidade étnico-linguística, frise-se que os dois últimos são os fatores multicolineares que compõem um construto denominado índice (IDI) produzido na seção 1 deste artigo.
+Desta forma os modelos de regressão linear multivariada procuram medir o grau de liberdade civil, respectivamente, em 51 (modelos 1 e 3) e 132 países (modelos 2 e 4) da base de dados do QOG (2016) através de quatro modelos de regressão linear multivariados. Em anexo, a tabela 10 sumariza a estatística descritiva das variáveis independentes.
+Diante disso, elencam-se as hipóteses que serão testadas com os modelos multivariados, nosso objetivo é observar se o efeito produzido pelas variáveis independentes sobre a liberdade civil é significativo e qual sua magnitude. Diante disso, declara-se:
+H0: indica que não existe relação significativa entre confiança da opinião pública no governo (X1); favoritismo nas decisões do governo (X2); prestação de contas (X3); eficiência institucional (X4) e fracionalização étnico-linguística (X5) e liberdade civil (Y), ou seja, as hipóteses nulas indicam que o efeito é nulo (?? = 0)
+Ha: indica que há relação significativa entre X1... X5 e Y, ou seja, as hipóteses alternativas indicam que o efeito é positivo (?? ??? 0).
+Entretanto, em nossos modelos, a interpretação dos testes de hipótese de X2 será diferente dos demais, esperamos o efeito inverso para esta variável em nossa variável dependente, ou seja, quanto maior o favoritismo em decisões do governo menor o grau de liberdade civil naquele país (?? < 0).
+Frente à especificação de nossos modelos, na seção seguinte, sumarizamos os resultados dos quatro modelos a partir da avaliação dos pressupostos dos modelos de regressão linear apontados pela literatura consultada (FIGUEIREDO et. al., 2011, 2014).
+
+## Seção 3 - Resultados dos modelos de regressão linear multivariada
+
+Diante do exposto na seção anterior, vale ressaltar que em nossos modelos a inclusão da variável confiança no governo (X1) representada por pesquisas de opinião pública realizadas pelo World Values Survey (WVS), reduz o número de casos de 132 (modelos 2 e 4) para 51 (modelos 1 e 3), devido a ausência de mensuração dessa variável em 76 países para os quais os dados do WVS não estão disponíveis. Outro ponto importante é a utilização de duas variáveis dependentes distintas para verificar o fenômeno da liberdade civil, uma categórica variando de 1 à 7 onde o menor número indica os países com maior liberdade civil, e outra contínua variando de 1 à 10 onde o menor número indica os países com menor liberdade civil.
+
+Em anexo a tabela 11 apresenta o resumo dos quatro modelos de regressão multivariados aplicados para o estudo da liberdade civil nos países da base de dados do QOG (2016), observamos o grau de explicação dos modelos através do R-quadrado-ajustado. A tabela sumariza os resultados dos testes de estatística F, o p-valor, os graus de liberdade e o desvio padrão dos modelos, essas informações indicam se as estimativas são ou não estatisticamente significativas, ou seja, o grau de validade da inferência que se procura produzir depende dos testes de significância. O erro padrão é uma medida de variabilidade da estimativa, ou seja, quanto menor o erro padrão, mais precisa é a estimativa, assim, se o erro padrão for muito grande, a estimativa não será significativa.
+A partir da análise dos modelos identificou-se que o modelo 1 possui o maior poder explicativo representando que as variáveis independentes escolhidas explicam 85% dos 51 casos (R2-ajustado = 0.85) quando utilizamos a liberdade civil como variável dependente categórica, já o modelo 3 no qual empregamos liberdade civil como variável contínua o poder explicativo para 51 casos diminui para 71% (R2-ajustado = 0.711). Observamos também que os modelos 2 e 4, seguem um padrão similar, sendo que em ambos observamos 132 casos, (incluímos os países para os quais não havia informação referente à pesquisas de opinião pública do WVS) o modelo 2 que utiliza a variável dependente categórica possui poder explicativo para 83% dos casos analisados (R2-ajustado = 0.711), enquanto que o modelo 4 com a variável dependente contínua explica 76% dos casos (R2-ajustado = 0.763).
+Como dito anteriormente, para interpretarmos os resultados do modelo 1 e 2 é preciso levar em consideração que o indicador da variável categórica aponta que os países com maior
+
+
+liberdade civil recebem o valor 1 enquanto que aqueles com menor liberdade recebem valor igual á 7.
+Dessa forma, os resultados do modelo 1 indicam que, em média, ao se elevar o nível de confiança da opinião pública no governo em uma unidade, espera-se, em média, uma redução de 1.002 pontos na liberdade civil do país (p-valor < .01), de maneira similar, em média, ao se elevar o favoritismo em decisões oficiais do governo espera-se, em média, uma redução de 0.561 pontos na liberdade civil (p-valor < .05), o inverso o ocorre com as variáveis X3, X4 e X5. Senão vejamos, o aumento de uma unidade na transparência das contas públicas (accountability) tem efeito positivo sobre a liberdade civil, espera-se que a variação cause, em média, um aumento de 0.052 nas liberdades civis (p-valor <.01), a eficiência institucional tem efeito similar, espera-se que a variação de uma unidade neste fator cause, em média, um aumento de 0.496 na liberdade civil (p-valor <.01) já a pluralidade étnico-religiosa tem efeito positivo, porém não estatisticamente significante sobre as liberdades civis neste modelo.
+Os achados do modelo 2, com 132 casos indicam que, em média, ao se elevar o favoritismo em decisões oficiais do governo espera-se, em média, uma redução de 0.675 pontos na liberdade civil (p-valor < .01), o inverso o ocorre com as variáveis X3, X4 e X5, o aumento de uma unidade na transparência das contas públicas (accountability) tem efeito positivo sobre a liberdade civil, espera-se que a variação cause, em média, um aumento de 0.067 nas liberdades civis (p-valor <.01), a eficiência institucional tem efeito maior, espera-se que a variação de uma unidade neste fator cause, em média, um aumento de 0.397 na liberdade civil (p-valor <.01) já a pluralidade étnico-religiosa tem efeito positivo, porém não estatisticamente significante sobre as liberdades civis neste modelo.
+Tendo em vista que, para interpretarmos os resultados do modelo 3 e 4 é preciso levar em consideração que agora o indicador da variável dependente é contínuo, assim os países com maior liberdade civil recebem o valor 10 enquanto que aqueles com menor liberdade recebem valor igual á 1.
+Os resultados do modelo 3, com 51 casos, indicam que, em média, ao se elevar o nível de confiança da opinião pública no governo em uma unidade, espera-se, em média, uma redução de 1.380 pontos na liberdade civil do país (p-valor < .05), de maneira similar, em média, ao se elevar o favoritismo em decisões oficiais do governo espera-se, em média, uma redução de 0.607, mas esse resultado não é estatisticamente significante. Novamente, o inverso o ocorre com as variáveis X3, X4 e X5, portanto, o aumento de uma unidade na transparência das contas públicas (accountability) tem efeito positivo sobre a liberdade civil, espera-se que a variação cause, em média, um aumento de 0.074 nas liberdades civis (p-valor <.01), a eficiência institucional tem efeito similar, espera-se que a variação de uma unidade neste fator cause, em média, um aumento de 0.556 na liberdade civil (p-valor <.05) já a pluralidade étnico-religiosa tem efeito positivo, porém não estatisticamente significante sobre as liberdades civis neste modelo.
+Já os achados do modelo 4, com 132 casos, indicam que, em média, ao se elevar o favoritismo em decisões oficiais do governo espera-se, em média, uma redução de 0.921 pontos na liberdade civil (p-valor < .01), outra vez, o inverso ocorre com as variáveis X3, X4 e X5, sendo que o aumento de uma unidade na transparência das contas públicas (accountability) tem efeito positivo sobre a liberdade civil, espera-se que a variação cause, em média, um aumento de 0.104 nas liberdades civis (p-valor <.01), a eficiência institucional tem efeito similar, espera-se que a variação de uma unidade neste fator cause, em média, um aumento de 0.486 na liberdade civil (p-valor <.01) já a pluralidade étnico-religiosa tem efeito positivo, porém não estatisticamente significante sobre as liberdades civis neste modelo.
+Os resultados indicam que nos quatro modelos nosso construto 1 funciona como esperado, podemos dizer que a eficiência institucional tem um forte efeito sobre as liberdades civis dos países, já o contruto 2, pluralidade étnico-linguística parece não ser significativa para explicar o aumento das liberdades civis nos países. Os gráficos 5, 6, 7 e 8 sumarizam os intervalos de confiança e indicam a significância estatística dos resultados de forma clara.
+
+```{r}
+
+# Grafico para a representaco dos intervalos de confianca dos coeficientes etimados
+par(mfrow=c(1,1))
+betas <- coefficients(modelo_1) 
+IC <-  confint(modelo_1, level=0.95) 
+
+y.axis <- seq(from=1, to=length(betas))
+plot(betas, y.axis, type="p", pch=19, xlab="Magnitude dos Coeficientes", ylab="", 
+     axes=F, xlim=c(min(IC-.4), max(IC+.4)), ylim=c(min(y.axis-.2), max(y.axis+.2)), 
+     cex=1,yaxs="i",xaxs="i")
+segments(IC[,1], y.axis, IC[,2], y.axis)
+axis(1, at=seq(round(min(IC-.9)), round(max(IC+.9)), by=0.1), 
+     labels=seq(round(min(IC-.9)), round(max(IC+.9)), by=0.1), tick=T, cex.axis=1, 
+     mgp=c(2,.7,0))
+axis(2, at=y.axis, label=names(betas), las=1, tick=T, line=-.5, cex.axis=1, 
+     mgp=c(2,.7,0))
+abline(v=0, lty=2, col="red")
+
+
+# Grafico para a representaco dos intervalos de confianca dos coeficientes etimados
+par(mfrow=c(1,1))
+betas <- coefficients(modelo_2) 
+IC <-  confint(modelo_2, level=0.95) 
+
+y.axis <- seq(from=1, to=length(betas))
+plot(betas, y.axis, type="p", pch=19, xlab="Magnitude dos Coeficientes", ylab="", 
+     axes=F, xlim=c(min(IC-.4), max(IC+.4)), ylim=c(min(y.axis-.2), max(y.axis+.2)), 
+     cex=1,yaxs="i",xaxs="i")
+segments(IC[,1], y.axis, IC[,2], y.axis)
+axis(1, at=seq(round(min(IC-.9)), round(max(IC+.9)), by=0.1), 
+     labels=seq(round(min(IC-.9)), round(max(IC+.9)), by=0.1), tick=T, cex.axis=1, 
+     mgp=c(2,.7,0))
+axis(2, at=y.axis, label=names(betas), las=1, tick=T, line=-.5, cex.axis=1, 
+     mgp=c(2,.7,0))
+abline(v=0, lty=2, col="red")
+
+# Grafico para a representaco dos intervalos de confianca dos coeficientes etimados
+par(mfrow=c(1,1))
+betas <- coefficients(modelo_3) 
+IC <-  confint(modelo_3, level=0.95) 
+
+y.axis <- seq(from=1, to=length(betas))
+plot(betas, y.axis, type="p", pch=19, xlab="Magnitude dos Coeficientes", ylab="", 
+     axes=F, xlim=c(min(IC-.4), max(IC+.4)), ylim=c(min(y.axis-.2), max(y.axis+.2)), 
+     cex=1,yaxs="i",xaxs="i")
+segments(IC[,1], y.axis, IC[,2], y.axis)
+axis(1, at=seq(round(min(IC-.9)), round(max(IC+.9)), by=0.1), 
+     labels=seq(round(min(IC-.9)), round(max(IC+.9)), by=0.1), tick=T, cex.axis=1, 
+     mgp=c(2,.7,0))
+axis(2, at=y.axis, label=names(betas), las=1, tick=T, line=-.5, cex.axis=1, 
+     mgp=c(2,.7,0))
+abline(v=0, lty=2, col="red")
+
+# Grafico para a representaco dos intervalos de confianca dos coeficientes etimados
+par(mfrow=c(1,1))
+betas <- coefficients(modelo_4) 
+IC <-  confint(modelo_4, level=0.95) 
+
+y.axis <- seq(from=1, to=length(betas))
+plot(betas, y.axis, type="p", pch=19, xlab="Magnitude dos Coeficientes", ylab="", 
+     axes=F, xlim=c(min(IC-.4), max(IC+.4)), ylim=c(min(y.axis-.2), max(y.axis+.2)), 
+     cex=1,yaxs="i",xaxs="i")
+segments(IC[,1], y.axis, IC[,2], y.axis)
+axis(1, at=seq(round(min(IC-.9)), round(max(IC+.9)), by=0.1), 
+     labels=seq(round(min(IC-.9)), round(max(IC+.9)), by=0.1), tick=T, cex.axis=1, 
+     mgp=c(2,.7,0))
+axis(2, at=y.axis, label=names(betas), las=1, tick=T, line=-.5, cex.axis=1, 
+     mgp=c(2,.7,0))
+abline(v=0, lty=2, col="red")
+
+```
+
+Diante de nossos achados, a primeira vista podemos ser levados a assumir que o modelo 1 que apresenta o maior grau de explicação dos casos de nossa matriz de dados é aquele que melhor explica o fenômeno da liberdade civil. Contudo, ao avaliarmos os dez pressupostos dos modelos de regressão, os testes de robustez dos modelos, podemos confirmar ou não as expectativas em relação ao modelo 1.
+Destarte, uma vez que utilizamos a base de dados secundária proveniente do repositório do Quality of Government Institute (QOG), assumimos que primeiro, o segundo e o terceiro pressupostos dos modelos de regressão que indicam, respectivamente, a relação linear entre os parâmetros independentes e a variável dependente, a importância da ausência de erros de mensuração nas variáveis e a importância do valor médio do termo de erro ser igual a zero foram satisfeitos em nossos quatro modelos, o que garante a confiabilidade e validade dos parâmetros utilizados, bem como, a consistência dos testes de significância estatística aplicados.
+Quanto aos outros pressupostos, a começar pelos modelos que utilizam a variável dependente categórica, identificou-se que os modelos 1 e 2 satisfazem o quarto pressuposto que indica que a diferença entre os resultados observados e os resultados preditos pelo modelo devem variar de modo uniforme (FIGUEIREDO, 2011, p.54). Os gráficos 9 e 10 apresentam a homocedasticidade da distribuição dos resíduos destes modelos.
+
+```{r}
+
+### Avaliando homocedasticidade ###
+# Analise dos Residuos do modelo de regressao linear multivariado 1
+analysis_data$Preditos <- predict(modelo_1)
+analysis_data$Residuo <- analysis_data$fh_cl - analysis_data$Preditos
+
+# Teste do valor medio do termo de erro igual a zero
+summary(analysis_data$Residuo)
+
+# Grafico de dispersao dos residuos padronizados do modelo 1
+plot(analysis_data$Preditos, analysis_data$Residuo, pch=21, bg="red", col="red")
+abline(0,0, lty = 2)
+
+
+### Avaliando homocedasticidade ###
+# Analise dos Residuos do modelo de regressao linear multivariado 2
+analysis_data_2$Preditos <- predict(modelo_2)
+analysis_data_2$Residuo <- analysis_data_2$fh_cl - analysis_data_2$Preditos
+
+# Teste do valor medio do termo de erro igual a zero
+summary(analysis_data_2$Residuo)
+
+# Grafico de dispersao dos residuos modelo 2
+plot(analysis_data_2$Preditos, analysis_data_2$Residuo, pch=21, bg="red", col="red")
+abline(0,0, lty = 2)
+
+```
+
+De acordo com o quinto pressuposto dos modelos de regressão (FIGUEIREDO, 2011, p. 56) testamos a ausência de autocorrelação entre os casos utilizando o teste de Durbin-Watson que detecta presença de autocorrelação nos dados, o indicador varia entre 0 e 4, valores entre 1.5 e 2.5 indicam independência das observações. 
+
+```{r}
+### Teste para Colinearidade  ###
+vif(modelo_1) # variance inflation factors 
+sqrt(vif(modelo_1)) > 3
+sqrt(vif(modelo_1)) < 1
+
+### Teste para autocorrelacao dos erros 
+durbinWatsonTest(modelo_1)
+
+# Correlacao entre a variavel dependente e o fator 1 - variavel independente construida
+cor(analysis_data$fh_cl, analysis_data$fac1)
+
+# Correlacao entre a variavel dependente e o fator 2 - variavel independente construida
+cor(analysis_data$fh_cl, analysis_data$fac2)
+
+### Teste para variancia do erro nao constante
+ncvTest(modelo_1)
+
+### Teste para Colinearidade 
+vif(modelo_2) # variance inflation factors 
+sqrt(vif(modelo_2)) > 3
+sqrt(vif(modelo_2)) < 1
+
+### Teste para autocorrelacao dos erros 
+durbinWatsonTest(modelo_2)
+
+# Correlacao entre a variavel dependente e o fator 1 - variavel independente construida
+cor(analysis_data_2$fh_cl, analysis_data_2$fac1)
+
+# Correlacao entre a variavel dependente e o fator 2 - variavel independente construida
+cor(analysis_data_2$fh_cl, analysis_data_2$fac2)
+
+### Teste para variancia do erro nao constante
+ncvTest(modelo_2)
+
+```
+
+O modelo 1 apresenta (DWT = 1.8), e o modelo 2 (DWT = 1.9) testou-se ainda a correlação entre as variáveis latentes eficiência institucional (modelo 1 R = -0.713; modelo 2 R = -0.697 ) e pluralidade étnico-linguística (modelo 1 R = -0.24; modelo 2 R = ) com a variável dependente liberdade civil, os resultados indicam que as observações são lineares e independentes e, portanto, não há correlação entre os termos de erro, garantimos dessa forma a confiabilidade dos testes de significância e intervalos de confiança. Testamos, ainda, a variância dos fatores (modelo 1 chi-quadrado = 2.7 com 1 grau de liberdade; modelo 2 chi-quadrado = 8.14 com 1 grau de liberdade).
+O sexto pressuposto dos modelos de regressão é de difícil concordância, a literatura indica que a correlação entre as variáveis independentes e o termo de erro pode enviesar os resultados, contudo, como este não se trata de um estudo experimental, não é possível manipular o valor da variável independente, por essa razão optou-se por violar este pressuposto, medida comum adotada por desenhos quasi-experimentais como é o caso de modelos lineares multivariados. Os gráficos 11 e 12 indicam que distribuição do termo de erro para cada componente de modo individual segue um padrão heterocedástico, ou seja, há correlação entre o termo de erro e as variáveis independentes, com exceção da variável latente pluralidade étnico-linguística que segue próxima à uma distribuição homocedastica porém o efeito dessa variável não possui significância estatística
+
+
+
+```{r}
+
+### Teste de Nao-linearidade ###
+# componente somado aos residuos  
+crPlots(modelo_1)
+
+### Teste de Nao-linearidade ###
+# componente somado aos residuos  
+crPlots(modelo_2)
+
+```
+
+O sétimo e o oitavo pressupostos dos modelos de regressão que apontam para possíveis problemas nas estimativas devido à especificação inadequada do modelo, como a inclusão de variáveis independentes teoricamente irrelevantes que reduzem a eficiência dos estimadores, ou, a multicolinearidade entre as variáveis independentes e a variável dependente do modelo que pode levar ao aumento da variância na magnitude dos parâmetros estimados, foram satisfeitos pelos modelos 1 e 2, ao passo que incluem duas variáveis latentes como mecanismos funcionais para evitar o viés imposto por possíveis variáveis omitidas e, concomitantemente, condensar a informação das variáveis altamente correlacionadas em um único indicador fatorial.
+O nono pressuposto, pode ser observado a partir da análise da distribuição dos resíduos dos modelos, a quantidade de informação sobre o fenômeno da liberdade civil que não pode ser explicada por nosso desenho de pesquisa deve seguir uma distribuição simétrica para satisfazer esse pressuposto. Ambos os modelos não satisfazem o nono pressuposto, os gráficos 13 e 14 demonstram que os valores dos resíduos padronizados dos modelos 1 e 2 não se distribuem de modo perfeitamente simétrico.
+
+
+```{r}
+### Avaliando distribuição dos resíduos ###
+# Histograma de dispersao dos residuos modelo 1
+hist(analysis_data$Residuo, freq=FALSE, ylim=c(0,0.6), main="Distribuicao dos residuos padronizados 1")
+xfit <- seq(min(analysis_data$Residuo),max(analysis_data$Residuo),length=40) 
+yfit <- dnorm(xfit) 
+lines(xfit, yfit)
+
+# Histograma de dispersao dos residuos modelo 2
+hist(analysis_data_2$Residuo, freq=FALSE, ylim=c(0,0.6), main="Distribuicao dos residuos padronizados 2")
+xfit <- seq(min(analysis_data_2$Residuo),max(analysis_data_2$Residuo),length=40) 
+yfit <- dnorm(xfit) 
+lines(xfit, yfit)
+
+```
+
+O décimo e último pressuposto referente ao Teorema Central do Limite que propõe o aumento do número de casos frente aos parâmetros estimados, foi testado a partir do aumento do número de casos de 51 (modelo 1) para 127 (modelo 2), retirando a variável confiança no governo. Em anexo, o resultado observado pela tabela 11 indica de fato o poder explicativo do modelo 2 é menor se comparado ao anterior em termos de R-ajustado e graus de liberdade, portanto, o aumento do número de casos teve pouca influência sobre os resultados do modelo 2.
+Em relação aos modelos 3 e 4 que utilizam a variável dependente contínua para mensurar a liberdade civil, a análise indica distribuição homocedástica dos resíduos frente aos valores preditos. Os gráficos 15 e 16 sumarizam a dispersão uniforme da diferença entre os resultados observados e os resultados preditos pelos modelos, portanto, ambos satisfazem o quarto pressuposto.
+
+```{r}
+
+
+### Avaliando homocedasticidade ###
+# Analise dos Residuos do modelo de regressao linear multivariado 3
+analysis_data_3$Preditos <- predict(modelo_3)
+analysis_data_3$Residuo <- analysis_data_3$eiu_cl - analysis_data_3$Preditos
+
+# Teste do valor medio do termo de erro igual a zero
+summary(analysis_data_3$Residuo)
+
+# Grafico de dispersao dos residuos modelo 3
+plot(analysis_data_3$Preditos, analysis_data_3$Residuo, pch=21, bg="red", col="red")
+abline(0,0, lty = 2)
+
+### Avaliando homocedasticidade ###
+# Analise dos Residuos do modelo de regressao linear multivariado 4
+analysis_data_4$Preditos <- predict(modelo_4)
+analysis_data_4$Residuo <- analysis_data_4$eiu_cl - analysis_data_4$Preditos
+
+# Teste do valor medio do termo de erro igual a zero
+summary(analysis_data_4$Residuo)
+
+# Grafico de dispersao dos residuos modelo 4
+plot(analysis_data_4$Preditos, analysis_data_4$Residuo, pch=21, bg="red", col="red")
+abline(0,0, lty = 2)
+
+```
+
+O teste de autocorrelação de Durbin-Watson, quinto pressuposto dos modelos de regressão, aponta modelo 3 (DWT = 2.1) e modelo 4 (DWT = 1.8). A correlação linear entre as variáveis latentes com a variável dependente registra para a variável eficiência institucional modelo 3 (R = 0.641) e modelo 4 (R = 0.654) e para a pluralidade étnico-religiosa modelo 3 (R = 0.151) e modelo 4 (R = 0.007). A variância entre os fatores (modelo 3 chi-quadrado = 10.41 com 1 grau de liberdade) e (modelo 4 chi-quadrado = 11.32 com 1 grau de liberdade). Os resultados indicam ausência de autocorrelação nos dados, garantindo a integridade dos testes de significância e dos intervalos de confiança dos modelos 3 e 4.
+
+```{r}
+### Teste para autocorrelacao dos erros 
+durbinWatsonTest(modelo_3)
+
+# Correlacao entre a variavel dependente e o fator 1 - variavel independente construida
+cor(analysis_data_3$eiu_cl, analysis_data_3$fac1)
+
+# Correlacao entre a variavel dependente e o fator 2 - variavel independente construida
+cor(analysis_data_3$eiu_cl, analysis_data_3$fac2)
+
+# Teste para variancia do erro nao constante
+ncvTest(modelo_3)
+
+### Teste para autocorrelacao dos erros 
+durbinWatsonTest(modelo_4)
+
+# Correlacao entre a variavel dependente e o fator 1 - variavel independente construida
+cor(analysis_data_4$eiu_cl, analysis_data_4$fac1)
+
+# Correlacao entre a variavel dependente e o fator 2 - variavel independente construida
+cor(analysis_data_4$eiu_cl, analysis_data_4$fac2)
+
+# Teste para variancia do erro nao constante
+ncvTest(modelo_4)
+
+```
+
+Novamente o sexto pressuposto que sustenta a ausência de correlação entre as variáveis independentes e o termo de erro não pode ser satisfeito por todas as variáveis dos modelos 3 e 4. Conforme demonstram os gráficos 17 e 18, no modelo 3 a distribuição do termo de erro por parâmetro individual segue um padrão heterocedástico para as variáveis eficiência institucional e prestação de contas, porém a distribuição das variáveis confiança no governo, favoritismo nas decisões do governo e pluralidade étnico-religiosa aproximam-se de um padrão homocedástico, já no modelo 4, com maior número de casos e sem a variável confiança no governo, apenas a variável pluralidade étnico-linguistica se aproxima de uma distribuição homocedastica, as outras três variáveis seguem um padrão heterocedástico.
+
+```{r}
+
+### Teste para Colinearidade 
+vif(modelo_3) # variance inflation factors 
+sqrt(vif(modelo_3)) > 3
+sqrt(vif(modelo_3)) < 1
+
+#A# Teste de Nao-linearidade 
+# componente somado aos residuos  
+crPlots(modelo_3)
+
+### Teste para Colinearidade 
+vif(modelo_4) # variance inflation factors 
+sqrt(vif(modelo_4)) > 3
+sqrt(vif(modelo_4)) < 1
+
+#Avaliando Nao-linearidade 
+# componente somado aos residuos  
+crPlots(modelo_4)
+
+```
+
+De modo similar aos modelos 1 e 2, o sétimo e o oitavo são pressupostos dos modelos de regressão foram satisfeitos a partir da análise exploratória dos dados, com o uso da técnica de análise fatorial. Optou-se por utilizar duas variáveis latentes como mecanismos funcionais para evitar o viés imposto por possíveis variáveis omitidas e condensar a informação das variáveis altamente correlacionadas em um único indicador fatorial.
+Em relação ao nono pressuposto, que se refere a distribuição dos resíduos do modelo, os histogramas apresentados pelos gráficos 19 e 20 indicam distribuição simétrica para os valores preditos frente aos resíduos padronizados em ambos os modelos, o que aumenta a validade das inferências realizadas pelos modelos que utilizam a variável dependente contínua.
+
+```{r}
+
+### Avaliando distribuição dos resíduos ###
+# Histograma de dispersao dos residulos modelo 3
+hist(analysis_data_3$Residuo, freq=FALSE, ylim=c(0,0.4), main="Distribuicao dos residuos padronizados 3")
+xfit <- seq(min(analysis_data_3$Residuo),max(analysis_data_3$Residuo),length=40) 
+yfit <- dnorm(xfit) 
+lines(xfit, yfit)
+
+### Avaliando distribuição dos resíduos ###
+# Histograma de dispersao dos residulos modelo 4
+hist(analysis_data_4$Residuo, freq=FALSE, ylim=c(0,0.4), main="Distribuicao dos residuos padronizados 4")
+xfit <- seq(min(analysis_data_4$Residuo),max(analysis_data_4$Residuo),length=40) 
+yfit <- dnorm(xfit) 
+lines(xfit, yfit)
+
+```
+
+No modelo 4, atentamos para o décimo e último pressuposto referente ao Teorema Central do Limite que propõe o aumento do número de casos frente aos parâmetros estimados, em anexo a tabela 11 indica que quando aumentamos o número de casos de 51 no modelo 2, para 127 no modelo 4, retirando a variável confiança no governo, o resultado indica que o poder explicativo do modelo 4 é maior se comparado ao anterior em termos de R-ajustado, observa-se que nesse modelo a variável favoritismo nas decisões do governo apresenta efeito significativo sobre a liberdade civil, diferentemente do modelo 2 onde não há significância para essa variável, além disso, reduziu-se o erro padrão das variáveis independentes estatisticamente significantes, portanto, o aumento do número de casos teve grande influência sobre os resultados do modelo 4.
+
+## Seção 4 Discussão e Conclusão
+
+
+
+
+
+
+
+References {#references .unnumbered}
+==========
+
+ANEXOS
+=============
+
+```{r}
+
+\begin{center} Tabel 1 - Indicators \end{center}
+
+| **Factor 1**         | **Factor 2)**                   
+|:------------------------------------------: | 
+| ** Institutional Efficiency | Ethnic-linguistic Plurality
+|:------------------------------------------: | 
+| X1 (Corruption Control) | X6 (Cultural Diversity)
+| X2 (Ethic Firms Behavior) | X7 (Ethnic Fracionalization)
+| X3 (Property Rigths) | X8 (Linguistic Fracionalization)
+| X4 (Political Stability) |
+| X5 (Functioning of government) |
+|:------------------------------------------: |
+*Source: By the author (2019)*
+
+```
+
+
+```{r}
+
+\begin{center} Tabel 2 - Descriptive Statistics \end{center}
+
+| **Variable**         | **Mean** | STD                   
+| ----------------- |:------------------------------------------: | 
+| ** Institutional Efficiency | Ethnic-linguistic Plurality
+|:------------------------------------------: | 
+| X1 (Corruption Control) | 0.08 | 0.96
+| X2 (Ethic Firms Behavior) | 4.11 | 0.96
+| X3 (Property Rigths) | 4.26 | 1.01
+| X4 (Political Stability) | -0.06 | 0.98
+| X5 (Functioning of government) | 4.99 | 2.51
+| X6 (Cultural Diversity) | 0.31 | 0.20
+| X7 (Ethnic Fracionalization) | 0.47 | 0.26
+| X8 (Linguistic Fracionalization) Z 0.39 | 0.28
+|:------------------------------------------: |
+*Source: By the author (2019)*
+
+```
+
+
+```{r}
+
+\begin{center} Tabel 3 - Sample Suitability Tests \end{center}
+
+| **Test**         | **Value observed** |                   
+| ----------------- |:------------------------------------------: | 
+| **KMO**| 0.860
+| **BTS** | 36
+| **SIG** | 0.01
+|:------------------------------------------: | 
+*Source: By the author (2019)*
+
+```
+
+```{r}
+
+\begin{center} Tabel 4 - Communalities \end{center}
+
+|                 | **Components**           
+| -----------------
+| **Variable**  |   Extracted
+|:------------------------------------------: | 
+| X1 (Corruption Control) | 0.911
+| X2 (Ethic Firms Behavior) | 0.890 
+| X3 (Property Rigths) | 0.845
+| X4 (Political Stability) | 0.603 
+| X5 (Functioning of government) | 0.665 
+| X6 (Cultural Diversity) | 0.843
+| X7 (Ethnic Fracionalization) | 0.829 
+| X8 (Linguistic Fracionalization) Z 0.772 
+|:------------------------------------------: |
+*Source: By the author (2019)*
+```
+
+
+```{r}
+
+\begin{center} Tabel 5 - Cumulative Variance \end{center}
+
+|                 | **Accumulated Values** |  Square load rotating sums    
+| -----------------
+| **Component**  | StD | Variance % | Acumulated % | STD | Variance % | Acumulated %
+|:------------------------------------------: | 
+| X1 (Corruption Control) | 2.06 | 53 | 53 | 4.64 | 51 | 51
+| X2 (Ethic Firms Behavior) | 1.45 | 26 | 79 | 2.57 | 28 | 80
+| X3 (Property Rigths) | 0.69 | 0.6 | 85 | - |  - | -  
+| X4 (Political Stability) | 0.64 | 0.05 | 90 | - | - | - 
+| X5 (Functioning of government) | 0.60 | 0.04 | 95 | - | - | -
+| X6 (Cultural Diversity) | 0.41 | 0.02 | 07 | - | - | - 
+| X7 (Ethnic Fracionalization) | 0.35 | 0.01 | 100 | - | - | - 
+| X8 (Linguistic Fracionalization) Z 0.772 
+|:------------------------------------------: |
+*Source: By the author (2019)*
+```   
+
+```{r}
+
+\begin{center} Tabel 7 - Mean variation of factors \end{center}
+
+|   **N: 127** | **min** |  **max**    
+|:------------------------------------------: | 
+| F1 (Institutional Efficiency) | -3.70 | 4.37 
+| F2 (Ethnic-linguistic Plurality) | -2.87 | 3.32 
+|:------------------------------------------: |
+*Source: By the author (2019)*
+
+```
+
+ANEXO II
+
+Variável dependente:
+Y) Liberdade civil: (fh_cl) variável dependente categórica que mede direitos como liberdade de expressão e crença, associação e organização, força da lei, e individualismo autonomo sem interferência do Estado sobre o particular. O indicador varia de 1 (muito livre) à 7 (menos livre). Os modelos 1 e 3, contêm, respectivamente, informação para 132 e 51 países.
+Y) Liberdade civil: (eiu_cl) variável dependente contínua que mede as liberdades civis a partir da liberdade de expressão e imprensa; liberdade de religião; liberdade de reunião e associação; e o direito ao devido processo judicial. O indicador varia de 1 à 10, onde o país mais livre recebe a nota máxima = 10, e o menos livre a nota mínima = 1. Os modelos 2 e 4, contêm, respectivamente, informação para 132 e 51 países.
+Variáveis independentes:
+i) X1 = confiança no governo, possui informação para 64 países e mensura a média de confiança no governo, o indicador varia de 1 (sem confiança nenhuma) à 4 (confiança total), os dados foram coletados entre 2009 e 2014;
+ii) X2 = favoritismo em decisões oficiais do governo, possui informação para 148 países, mensura a extensão do poder governamental, poder dos oficiais de governo para favorecer empresas e indivíduos particulares em acordos, por exemplo, atuação de um círculo de influência na tomada de decisão sobre políticas e contratos. O indicador varia de 1 (sempre demonstram favoritismo) à 7 (nunca demonstram favoritismo), os dados foram coletados de 2011 à 2013;
+iii) X3 = accountability transparência, possui um índice composto por 16 indicadores que medem a transparência nas ações do governo (seis deles mensuram a emprensa livre, quatro para transparência fiscal, e seis para restrições políticas). O ano base é 1980, o índice de transparência possuia informação para 115 países em 1980, este valor subiu para 189 países ao final de 2010.
+iv) X4 = Fator 1 - eficiência institucional
+v) X5 = Fator 2 - pluralidade étnico-linguística
+
+
+
+```{r}
+
+\begin{center} Tabel 8 - Regression Model Variables \end{center}
+
+| **Dependent Variable: Civil Liberties**   
+| -----------------
+| **Independent Variables**  
+|:------------------------------------------: | 
+| X1 (Confidence in Government) 
+| X2 (Favoritism in Government officials decisions)
+| X3 (Accountability)
+| X4 (Institutional Efficiency) 
+| X5 (Ethnic-linguistic Plurality) 
+|:------------------------------------------: |
+*Source: By the author (2019)*
+```  
+
+```{r}
+
+\begin{center} Tabel 9 - Descriptive Statistics \end{center}
+
+| **Variable**         | **Mean** | min | máx                   
+| ----------------- |:------------------------------------------: | 
+| X1 (Confidence in Government) | 2.25 | 1.68 | 3.32
+| X2 (Favoritism in Government officials decisions) | 2.99 | 1.85 | 5.41 
+| X3 (Accountability) | 56 | 11 | 80 
+| X4 (Institutional Efficiency) | -0.40 | -3.70 | 4.37 
+| X5 (Ethnic-linguistic Plurality) | 0.07 | -2.87 | 3.32
+|:------------------------------------------: |
+*Source: By the author (2019)*
 
 ```
 
 
 
 ```{r analise, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
-# Modelo de regressao linear multivariado 1
-colnames(analysis_data) <- c("Civil Liberties 1", "Confidence in Government", "Favoritism in decisions of government officials",
-                             "Accountability", "Control of Corruption", "Ethical behavior of firms", "Property rights", 
-                             "Political Stability", "Functioning of government", "Cultural Diversity", 
-                             "Ethnic Fractionalization", "Language Fractionalization", 
-                             "Institucional Efficiency", "Ethnic-linguistic Plurality")
+
+# Importando banco de dados em formato .csv - modelo 1
+library(readr)
+analysis_data <- read_delim("analysis_data.csv", 
+                              ";", escape_double = FALSE, trim_ws = TRUE)
 
 modelo_1 <- lm(`Civil Liberties 1` ~ `Confidence in Government` +
                  `Favoritism in decisions of government officials` + 
                  `Accountability` + 
-                 `Institucional Eficiency` + 
-                 `Ethnic-linguistic Plurality` 
-               data = analysis_data)
-
-# Modelo de regressao linear multivariado 1
-modelo_1 <- lm(fh_cl ~ wvs_confgov +
-                 wef_fgo + 
-                 diat_ati + 
-                 fac1 + 
-                 fac2 , 
+                 `Institucional Efficiency` + 
+                 `Ethnic_linguistic Plurality` , 
                data = analysis_data)
 
 # Visualizacao do modelo 1
 stargazer(modelo_1, type = "latex", style = "aer", p.auto=FALSE, header = FALSE)
 
+#=================
+# Importando banco de dados em formato .csv - modelo 2
+library(readr)
+analysis_data_2 <- read_delim("analysis_data_2.csv", 
+                              ";", escape_double = FALSE, trim_ws = TRUE)
+
+# Modelo de regressao linear multivariado 2
+modelo_2 <- lm(`Civil Liberties 1` ~ `Confidence in Government` +
+                 `Favoritism in decisions of government officials` + 
+                 `Accountability` + 
+                 `Institucional Efficiency` + 
+                 `Ethnic_linguistic Plurality` , 
+               data = analysis_data_2)
+
+
+# Visualizacao dos modelos 1 e 2
+stargazer(modelo_1, modelo_2, type = "text", title = "Resultados do modelo 1", style = "ajps", p.auto=FALSE)
+
+#============
+# Importando banco de dados em formato .csv - modelo 3
+library(readr)
+analysis_data_3 <- read_delim("analysis_data_3.csv", 
+                              ";", escape_double = FALSE, trim_ws = TRUE)
+
+# Modelo de regressao linear multivariado 3
+modelo_3 <- lm(`Civil Liberties 2` ~ `Confidence in Government` +
+                 `Favoritism in decisions of government officials` + 
+                 `Accountability` + 
+                 `Institucional Efficiency` + 
+                 `Ethnic_linguistic Plurality` , 
+               data = analysis_data_3)
+
+
+# Visualizacao do modelo 3
+stargazer(modelo_3, type = "text", title = "Resultados do modelo 3", style = "ajps", p.auto=FALSE)
+
+#==============
+# Importando banco de dados em formato .csv - modelo 4
+library(readr)
+analysis_data_4 <- read_delim("analysis_data_4.csv", 
+                              ";", escape_double = FALSE, trim_ws = TRUE)
+
+# Modelo de regressao linear multivariado 4 sem wvs_confgov
+modelo_4 <- lm(`Civil Liberties 2` ~ `Confidence in Government` +
+                 `Favoritism in decisions of government officials` + 
+                 `Accountability` + 
+                 `Institucional Efficiency` + 
+                 `Ethnic_linguistic Plurality` , 
+               data = analysis_data_4)
+
+
+# Visualizacao dos modelos 1 a 4
+\begin{center} Tabel 10 - Multivariate Regression Models \end{center}
+stargazer(modelo_1, modelo_2, modelo_3, modelo_4, 
+          type = "text", title = "Resultados do modelo 4", style = "ajps", p.auto=FALSE)
+
 ```
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-ggplot(analysis_data, aes(x = fac2, y = fac1)) +
-  geom_point() +
-  geom_vline(xintercept = 0, size =1, linetype = "dashed") +
-  geom_hline(yintercept = 0, size =1, linetype = "dashed") +
-  labs(x = "Ethnic-linguistic Plurality", y = "Institutional Efficiency")
-```
 
-```{r, eval=FALSE, echo=FALSE}
-ggplot(analysis_data, aes(x = fac1, y = fac2)) +
-  geom_point()+
-  geom_text(aes(label = analysis_data$NOMEDOPAIS)) +
-geom_smooth(method='lm')
-```
-
-References {#references .unnumbered}
-==========
