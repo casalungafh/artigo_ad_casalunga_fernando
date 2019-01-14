@@ -131,7 +131,6 @@ colnames(analysis_data_2) <- c("Civil Liberties 1",
                              "Ethnic Fractionalization", "Language Fractionalization", 
                              "Institucional Efficiency", "Ethnic_linguistic Plurality")
 
-write.table(analysis_data_2, "analysis_data_2.csv", sep = ";", row.names = F)
 
 #============
 # Rename database variables model 3 
