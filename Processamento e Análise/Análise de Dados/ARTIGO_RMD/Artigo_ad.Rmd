@@ -70,6 +70,10 @@ if(require(stats) == F) install.packages('stats'); require(stats)
 if(require(reshape2) == F) install.packages('reshape2'); require(reshape2)
 if(require(zoo) == F) install.packages('zoo'); require(zoo)
 
+# Importing data bse into .csv format - correlation matrix
+library(readr)
+analysis_data_c <- read_delim("analysis_data_c.csv", 
+                            ";", escape_double = FALSE, trim_ws = TRUE)
 
 # Importing database into .csv format - template 1
 library(readr)
@@ -96,6 +100,16 @@ analysis_data_4 <- read_delim("analysis_data_4.csv",
 
 ```{r base, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 
+# Rename correlation matrix
+colnames(analysis_data_c) <- c("Civil Liberties 1", "Confidence in Government",
+                             "Favoritism in decisions of government officials",
+                             "Accountability", "Control of Corruption", 
+                             "Ethical behavior of firms", "Property rights", 
+                             "Political Stability", "Functioning of government",
+                             "Cultural Diversity", 
+                             "Ethnic Fractionalization", "Language Fractionalization")
+
+#===========
 # Rename database variables model 1
 colnames(analysis_data) <- c("Civil Liberties 1", "Confidence in Government",
                              "Favoritism in decisions of government officials",
@@ -105,8 +119,6 @@ colnames(analysis_data) <- c("Civil Liberties 1", "Confidence in Government",
                              "Cultural Diversity", 
                              "Ethnic Fractionalization", "Language Fractionalization", 
                              "Institucional Efficiency", "Ethnic_linguistic Plurality")
-
-write.table(analysis_data, "analysis_data.csv", sep = ";", row.names = F)
 
 #============
 # Rename database variables model 2 
@@ -132,8 +144,6 @@ colnames(analysis_data_3) <- c("Civil Liberties 2", "Confidence in Government",
                              "Ethnic Fractionalization", "Language Fractionalization", 
                              "Institucional Efficiency", "Ethnic_linguistic Plurality")
 
-write.table(analysis_data_3, "analysis_data_3.csv", sep = ";", row.names = F)
-
 #============
 # Rename database variables model 4
 colnames(analysis_data_4) <- c("Civil Liberties 2",
@@ -145,13 +155,14 @@ colnames(analysis_data_4) <- c("Civil Liberties 2",
                              "Ethnic Fractionalization", "Language Fractionalization", 
                              "Institucional Efficiency", "Ethnic_linguistic Plurality")
 
-write.table(analysis_data_4, "analysis_data_4.csv", sep = ";", row.names = F)
-
 ```
 
 ```{r savedataset, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 
 #=============================
+# Save correlation matrix database
+write.table(analysis_data_c, "analysis_data_c.csv", sep = ";", row.names = F)
+
 # Save database models 1 through 4 with renamed variables
 # model 1
 write.table(analysis_data, "analysis_data.csv", sep = ";", row.names = F)
@@ -206,7 +217,7 @@ In relation to the correlation between the independent variables that compose th
 ```{r analyze1, echo=FALSE, message=FALSE, warning=FALSE, results='asis'} 
 
 # Generate correlation matrix - model 1
-cormat <- cor(analysis_data[, -c(1:4)])
+cormat <- cor(analysis_data_c[, -c(1:4)])
 melted_cormat <- melt(cormat)
 
 # Correlation matrix graph - model 1
@@ -264,6 +275,7 @@ When applying the technique of factorial analysis we determine the type of rotat
 
 With the ownership of the transformed factors, institutional efficiency and ethnic-linguistic plurality, they become a construct, or indicator that we call Inclusive Democracy Index (IDI). To better identify the operationalization of these factors in our construct, we represent through the graphical interface the dispersion of the 132 countries of our database according to the two latent variables transformed.
 
+
 ```{r analyze4, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 
 # Descriptive of factors 1 and 2
@@ -277,6 +289,7 @@ ggplot(analysis_data, aes(x = `Ethnic_linguistic Plurality`, y = `Institucional 
   labs(x = "Ethnic_linguistic Plurality", y = "Institutional Efficiency")
 
 ```
+
 
 ```{r analyze5, eval=FALSE, echo=FALSE}
 
