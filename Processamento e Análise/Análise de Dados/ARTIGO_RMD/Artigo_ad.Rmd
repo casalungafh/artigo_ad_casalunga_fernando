@@ -70,6 +70,7 @@ if(require(stats) == F) install.packages('stats'); require(stats)
 if(require(reshape2) == F) install.packages('reshape2'); require(reshape2)
 if(require(zoo) == F) install.packages('zoo'); require(zoo)
 if(require(knitr) == F) install.packages('knitr'); require(knitr)
+if(require(xtable) == F) install.packages('xtable'); require(xtable)
 
 # Importing data bse into .csv format - correlation matrix
 library(readr)
@@ -816,9 +817,9 @@ ANNEX 1
 ANNEX 2
 
 Dependent variable:
-Y) Civil liberty: (fh_cl) categorical dependent variable that measures rights such as freedom of expression and belief, association and organization, force of law, and autonomous individualism without state interference on the particular. The indicator ranges from 1 (very free) to 7 (less free). Models 1 and 3, respectively, contain information for 132 and 51 countries.
+Y) Civil liberty 1: (fh_cl) categorical dependent variable that measures rights such as freedom of expression and belief, association and organization, force of law, and autonomous individualism without state interference on the particular. The indicator ranges from 1 (very free) to 7 (less free). Models 1 and 3, respectively, contain information for 132 and 51 countries.
 
-Y) Civil liberty: (eiu_cl) continuous dependent variable that measures civil liberties from freedom of expression and press; freedom of religion; freedom of assembly and association; and the right to due process. The indicator ranges from 1 to 10, where the freest country receives the maximum score = 10, and the least free the minimum score = 1. Models 2 and 4, respectively, contain information for 132 and 51 countries.
+Y) Civil liberty 2: (eiu_cl) continuous dependent variable that measures civil liberties from freedom of expression and press; freedom of religion; freedom of assembly and association; and the right to due process. The indicator ranges from 1 to 10, where the freest country receives the maximum score = 10, and the least free the minimum score = 1. Models 2 and 4, respectively, contain information for 132 and 51 countries.
 Independent variables:
 
 i) X1 = trust in the government, it has information for 64 countries and it measures the average trust in the government, the indicator varies from 1 (without trust) to 4 (total trust), data were collected between 2009 and 2014;
