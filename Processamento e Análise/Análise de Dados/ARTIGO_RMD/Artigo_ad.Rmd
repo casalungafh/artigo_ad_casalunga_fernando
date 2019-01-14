@@ -69,6 +69,7 @@ if(require(FactoMineR) == F) install.packages('FactoMiner'); require(FactoMineR)
 if(require(stats) == F) install.packages('stats'); require(stats)
 if(require(reshape2) == F) install.packages('reshape2'); require(reshape2)
 if(require(zoo) == F) install.packages('zoo'); require(zoo)
+if(require(knitr) == F) install.packages('knitr'); require(knitr)
 
 # Importing data bse into .csv format - correlation matrix
 library(readr)
@@ -101,7 +102,7 @@ analysis_data_4 <- read_delim("analysis_data_4.csv",
 ```{r base, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 
 # Rename correlation matrix
-colnames(analysis_data_c) <- c("Civil Liberties 1", "Confidence in Government",
+colnames(analysis_data_c) <- c("Civil Liberty 1", "Confidence in Government",
                              "Favoritism in decisions of government officials",
                              "Accountability", "Control of Corruption", 
                              "Ethical behavior of firms", "Property rights", 
@@ -111,7 +112,7 @@ colnames(analysis_data_c) <- c("Civil Liberties 1", "Confidence in Government",
 
 #===========
 # Rename database variables model 1
-colnames(analysis_data) <- c("Civil Liberties 1", "Confidence in Government",
+colnames(analysis_data) <- c("Civil Liberty 1", "Confidence in Government",
                              "Favoritism in decisions of government officials",
                              "Accountability", "Control of Corruption", 
                              "Ethical behavior of firms", "Property rights", 
@@ -122,7 +123,7 @@ colnames(analysis_data) <- c("Civil Liberties 1", "Confidence in Government",
 
 #============
 # Rename database variables model 2 
-colnames(analysis_data_2) <- c("Civil Liberties 1",
+colnames(analysis_data_2) <- c("Civil Liberty 1",
                              "Favoritism in decisions of government officials",
                              "Accountability", "Control of Corruption", 
                              "Ethical behavior of firms", "Property rights", 
@@ -134,7 +135,7 @@ colnames(analysis_data_2) <- c("Civil Liberties 1",
 
 #============
 # Rename database variables model 3 
-colnames(analysis_data_3) <- c("Civil Liberties 2", "Confidence in Government",
+colnames(analysis_data_3) <- c("Civil Liberty 2", "Confidence in Government",
                              "Favoritism in decisions of government officials",
                              "Accountability", "Control of Corruption", 
                              "Ethical behavior of firms", "Property rights", 
@@ -145,7 +146,7 @@ colnames(analysis_data_3) <- c("Civil Liberties 2", "Confidence in Government",
 
 #============
 # Rename database variables model 4
-colnames(analysis_data_4) <- c("Civil Liberties 2",
+colnames(analysis_data_4) <- c("Civil Liberty 2",
                              "Favoritism in decisions of government officials",
                              "Accountability", "Control of Corruption", 
                              "Ethical behavior of firms", "Property rights", 
@@ -362,7 +363,7 @@ It was pointed out that in the four models the first latent transformed variable
 
 # Multivariate Linear Regression Model 1
 
-model_1 <- lm(`Civil Liberties 1` ~ `Confidence in Government` +
+model_1 <- lm(`Civil Liberty 1` ~ `Confidence in Government` +
                  `Favoritism in decisions of government officials` + 
                  `Accountability` + 
                  `Institucional Efficiency` + 
@@ -372,7 +373,7 @@ model_1 <- lm(`Civil Liberties 1` ~ `Confidence in Government` +
 #=================
 # Multivariate Linear Regression Model 2 - drop Confidence in Government
 
-model_2 <- lm(`Civil Liberties 1` ~  +
+model_2 <- lm(`Civil Liberty 1` ~  +
                  `Favoritism in decisions of government officials` + 
                  `Accountability` + 
                  `Institucional Efficiency` + 
@@ -381,7 +382,7 @@ model_2 <- lm(`Civil Liberties 1` ~  +
 
 #============
 # Multivariate Linear Regression Model 3
-model_3 <- lm(`Civil Liberties 2` ~ `Confidence in Government` +
+model_3 <- lm(`Civil Liberty 2` ~ `Confidence in Government` +
                  `Favoritism in decisions of government officials` + 
                  `Accountability` + 
                  `Institucional Efficiency` + 
@@ -390,7 +391,7 @@ model_3 <- lm(`Civil Liberties 2` ~ `Confidence in Government` +
 
 #==============
 # Multivariate Linear Regression Model 4 - drop Confidence in Government
-model_4 <- lm(`Civil Liberties 2` ~  +
+model_4 <- lm(`Civil Liberty 2` ~  +
                  `Favoritism in decisions of government officials` + 
                  `Accountability` + 
                  `Institucional Efficiency` + 
@@ -481,7 +482,7 @@ As for the other assumptions, starting with the models using the categorical dep
 ### Evaluating homoscedasticity ###
 # Residual analysis of multivariate linear regression model 1
 analysis_data$Predicted <- predict(model_1)
-analysis_data$Residuo <- analysis_data$`Civil Liberties 1` - analysis_data$Predicted
+analysis_data$Residuo <- analysis_data$`Civil Liberty 1` - analysis_data$Predicted
 
 # Test of the mean value of the error term equal to zero
 summary(analysis_data$Residuo)
@@ -494,7 +495,7 @@ abline(0,0, lty = 2)
 ### Evaluating homoscedasticity ###
 # Residual analysis of multivariate linear regression model 2
 analysis_data_2$Predicted <- predict(model_2)
-analysis_data_2$Residuo <- analysis_data_2$`Civil Liberties 1` - analysis_data_2$Predicted
+analysis_data_2$Residuo <- analysis_data_2$`Civil Liberty 1` - analysis_data_2$Predicted
 
 # Test of the mean value of the error term equal to zero
 summary(analysis_data_2$Residuo)
@@ -517,10 +518,10 @@ sqrt(vif(model_1)) < 1
 durbinWatsonTest(model_1)
 
 # Correlation between the dependent variable and the factor 1 - independent variable constructed
-cor(analysis_data$`Civil Liberties 1`, analysis_data$`Institucional Efficiency`)
+cor(analysis_data$`Civil Liberty 1`, analysis_data$`Institucional Efficiency`)
 
 # Correlation between the dependent variable and the factor 2 - independent variable constructed
-cor(analysis_data$`Civil Liberties 1`, analysis_data$`Ethnic_linguistic Plurality`)
+cor(analysis_data$`Civil Liberty 1`, analysis_data$`Ethnic_linguistic Plurality`)
 
 ### Test for non-constant error variance
 ncvTest(model_1)
@@ -534,10 +535,10 @@ sqrt(vif(model_2)) < 1
 durbinWatsonTest(model_2)
 
 # Correlation between the dependent variable and the factor 1 - independent variable constructed
-cor(analysis_data_2$`Civil Liberties 1`, analysis_data_2$`Institucional Efficiency`)
+cor(analysis_data_2$`Civil Liberty 1`, analysis_data_2$`Institucional Efficiency`)
 
 # Correlation between the dependent variable and the factor 2 - independent variable constructed
-cor(analysis_data_2$`Civil Liberties 1`, analysis_data_2$`Ethnic_linguistic Plurality`)
+cor(analysis_data_2$`Civil Liberty 1`, analysis_data_2$`Ethnic_linguistic Plurality`)
 
 ### Teste para variancia do erro nao constante
 ncvTest(model_2)
@@ -591,7 +592,7 @@ In relation to models 3 and 4 that use the continuous dependent variable to meas
 ### Evaluating homoscedasticity ###
 # Residual analysis of the multivariate linear regression model 3
 analysis_data_3$Predicted <- predict(model_3)
-analysis_data_3$Residuo <- analysis_data_3$`Civil Liberties 2` - analysis_data_3$Predicted
+analysis_data_3$Residuo <- analysis_data_3$`Civil Liberty 2` - analysis_data_3$Predicted
 
 # Test of the mean value of the error term equal to zero
 summary(analysis_data_3$Residuo)
@@ -603,7 +604,7 @@ abline(0,0, lty = 2)
 ### Evaluating homoskedasticity ###
 # Residual analysis of the multivariate linear regression model 4
 analysis_data_4$Predicted <- predict(model_4)
-analysis_data_4$Residuo <- analysis_data_4$`Civil Liberties 2` - analysis_data_4$Predicted
+analysis_data_4$Residuo <- analysis_data_4$`Civil Liberty 2` - analysis_data_4$Predicted
 
 # Test of the mean value of the error term equal to zero
 summary(analysis_data_4$Residuo)
@@ -628,10 +629,10 @@ sqrt(vif(model_3)) < 1
 durbinWatsonTest(model_3)
 
 # Correlation between the dependent variable and the factor 1 - independent variable constructed
-cor(analysis_data_3$`Civil Liberties 2`, analysis_data_3$`Institucional Efficiency`)
+cor(analysis_data_3$`Civil Liberty 2`, analysis_data_3$`Institucional Efficiency`)
 
 # Correlation between the dependent variable and the factor 2 - independent variable constructed
-cor(analysis_data_3$`Civil Liberties 2`, analysis_data_3$`Ethnic_linguistic Plurality`)
+cor(analysis_data_3$`Civil Liberty 2`, analysis_data_3$`Ethnic_linguistic Plurality`)
 
 # Test for non-constant error variance
 ncvTest(model_3)
@@ -645,10 +646,10 @@ sqrt(vif(model_4)) < 1
 durbinWatsonTest(model_4)
 
 # Correlation between the dependent variable and the factor 1 - independent variable constructed
-cor(analysis_data_4$`Civil Liberties 2`, analysis_data_4$`Institucional Efficiency`)
+cor(analysis_data_4$`Civil Liberty 2`, analysis_data_4$`Institucional Efficiency`)
 
 # Correlation between the dependent variable and the factor 2 - independent variable constructed
-cor(analysis_data_4$`Civil Liberties 2`, analysis_data_4$`Ethnic_linguistic Plurality`)
+cor(analysis_data_4$`Civil Liberty 2`, analysis_data_4$`Ethnic_linguistic Plurality`)
 
 # Test for non-constant error variance
 ncvTest(model_4)
@@ -837,7 +838,7 @@ v) X5 = Factor 2 - ethnic-linguistic plurality
 
 \begin{center} Tabel 8 - Regression Model Variables \end{center}
 
-| **Dependent Variable: Civil Liberties**   
+| **Dependent Variable: Civil Liberty 1 - 2**   
 | -----------------
 | **Independent Variables**  
 |:------------------------------------------: | 
