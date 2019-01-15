@@ -722,73 +722,71 @@ Annex 1
 
 ```{r analyze15, eval=FALSE}
 
-\begin{center} Tabel 1 - Indicators \end{center}
+                           Tabel 1 - Indicators 
 
 |          **Factor 1**          |          **Factor 2)**                   
 |:-------------------------------|---------------------------------------:| 
 | ** Institutional Efficiency    | Ethnic-linguistic Plurality
 |:-------------------------------|---------------------------------------:| 
-| X1 (Corruption Control)        | X6 (Cultural Diversity)
-| X2 (Ethic Firms Behavior)      | X7 (Ethnic Fracionalization)
-| X3 (Property Rigths)           | X8 (Linguistic Fracionalization)
-| X4 (Political Stability)       |
-| X5 (Functioning of government) |
+| X1 (Corruption Control)        | X6 (Cultural Diversity)                |
+| X2 (Ethic Firms Behavior)      | X7 (Ethnic Fracionalization)           |
+| X3 (Property Rigths)           | X8 (Linguistic Fracionalization)       |
+| X4 (Political Stability)       |                                        |
+| X5 (Functioning of government) |                                        |
 |:-----------------------------------------------------------------------:|
 *Source: By the author (2019)*
 
 ```
 
-
 ```{r analyze16, eval=FALSE}
 
-\begin{center} Tabel 2 - Descriptive Statistics \end{center}
+              Tabel 2 - Descriptive Statistics 
 
-|         **Variables**           | **Mean**  | STD                   
-| ------------------------------- |:---------:|-----------:| 
-| X1 (Corruption Control)         | 0.08      | 0.96
-| X2 (Ethic Firms Behavior)       | 4.11      | 0.96
-| X3 (Property Rigths)            | 4.26      | 1.01
-| X4 (Political Stability)        | -0.06     | 0.98
-| X5 (Functioning of government)  | 4.99      | 2.51
-| X6 (Cultural Diversity)         | 0.31      | 0.20
-| X7 (Ethnic Fracionalization)    | 0.47      | 0.26
-| X8 (Linguistic Fracionalization)| 0.39      | 0.28
-|:-------------------------------------------------------:|
+|         **Variables**           | **Mean**  |  STD                   
+| ------------------------------- |:---------:|-------:| 
+| X1 (Corruption Control)         |    0.08   |  0.96  |
+| X2 (Ethic Firms Behavior)       |    4.11   |  0.96  |
+| X3 (Property Rigths)            |    4.26   |  1.01  |
+| X4 (Political Stability)        |    -0.06  |  0.98  |
+| X5 (Functioning of government)  |    4.99   |  2.51  |
+| X6 (Cultural Diversity)         |    0.31   |  0.20  |
+| X7 (Ethnic Fracionalization)    |    0.47   |  0.26  |
+| X8 (Linguistic Fracionalization)|    0.39   |  0.28  |
+|:----------------------------------------------------:|
 *Source: By the author (2019)*
 
 ```
 
-
 ```{r analyze 17, eval=FALSE}
 
-\begin{center} Tabel 3 - Sample Suitability Tests \end{center}
+Tabel 3 - Sample Suitability Tests 
 
 | **Test** | **Value observed** |                   
 | ---------|:------------------:| 
-| **KMO**  | 0.860
-| **BTS**  | 36
-| **SIG**  | 0.01
-|:----------------------------: | 
+| **KMO**  |        0.860       |
+| **BTS**  |        36          |
+| **SIG**  |        0.01        |
+|:-----------------------------:| 
 *Source: By the author (2019)*
 
 ```
 
 ```{r analyze 18, eval=FALSE}
 
-\begin{center} Tabel 4 - Communalities \end{center}
+                 Tabel 4 - Communalities 
 
 |                 | **Components**           
 | -------------------------------------------
 |         **Variable**            |  Inicial | **Extracted** |
 |:----------------------------------------------------------:| 
-| X1 (Corruption Control)         | 1.000    |     0.911     |
-| X2 (Ethic Firms Behavior)       | 1.000    |     0.890     |
-| X3 (Property Rigths)            | 1.000    |     0.845     |
-| X4 (Political Stability)        | 1.000    |     0.603     |
-| X5 (Functioning of government)  | 1.000    |     0.665     |
-| X6 (Cultural Diversity)         | 1.000    |     0.843     |
-| X7 (Ethnic Fracionalization)    | 1.000    |     0.829     |
-| X8 (Linguistic Fracionalization)| 1.000    |     0.772     |
+| X1 (Corruption Control)         |   1.000  |     0.911     |
+| X2 (Ethic Firms Behavior)       |   1.000  |     0.890     |
+| X3 (Property Rigths)            |   1.000  |     0.845     |
+| X4 (Political Stability)        |   1.000  |     0.603     |
+| X5 (Functioning of government)  |   1.000  |     0.665     |
+| X6 (Cultural Diversity)         |   1.000  |     0.843     |
+| X7 (Ethnic Fracionalization)    |   1.000  |     0.829     |
+| X8 (Linguistic Fracionalization)|   1.000  |     0.772     |
 |:----------------------------------------------------------:|
 *Source: By the author (2019)*
 ```
@@ -796,35 +794,35 @@ Annex 1
 
 ```{r analyze 19, eval=FALSE}
 
-\begin{center} Tabel 5 - Cumulative Variance \end{center}
+                            Tabel 5 - Cumulative Variance 
 
-|                                 |    **Accumulated Values**        |    Square load rotating sums     |
-| ------------------------------------------------------------------------------
-|          **Component**          | StD  | Variance % | Acumulated % | STD  | Variance % | Acumulated % |
-|:-----------------------------------------------------------------------------------------------------:| 
-| X1 (Corruption Control)         | 2.06 | 53         | 53           | 4.64 | 51         | 51           |
-| X2 (Ethic Firms Behavior)       | 1.45 | 26         | 79           | 2.57 | 28         | 80           |
-| X3 (Property Rigths)            | 0.69 | 0.6        | 85           | -    | -          | -            |
-| X4 (Political Stability)        | 0.64 | 0.05       | 90           | -    | -          | -            |
-| X5 (Functioning of government)  | 0.60 | 0.04       | 95           | -    | -          | -            |
-| X6 (Cultural Diversity)         | 0.41 | 0.02       | 97           | -    | -          | -            |
-| X7 (Ethnic Fracionalization)    | 0.35 | 0.01       | 99           | -    | -          | -            |
-| X8 (Linguistic Fracionalization)| 0.22 | 0.01       | 100          | -    | -          | -            |
-|:-----------------------------------------------------------------------------------------------------:|
+|                                 |**Accumulated Values**  | Square load rotating sums |
+|:------------------------------------------------------------------------------------:|
+|          **Component**          | StD  | Var% | Acmlted% | STD  | Var% | Acmlted%    |
+|:------------------------------------------------------------------------------------:| 
+| X1 (Corruption Control)         | 2.06 | 53   | 53       | 4.64 | 51   | 51          |
+| X2 (Ethic Firms Behavior)       | 1.45 | 26   | 79       | 2.57 | 28   | 80          |
+| X3 (Property Rigths)            | 0.69 | 0.6  | 85       | -    | -    | -           |
+| X4 (Political Stability)        | 0.64 | 0.05 | 90       | -    | -    | -           |
+| X5 (Functioning of government)  | 0.60 | 0.04 | 95       | -    | -    | -           |
+| X6 (Cultural Diversity)         | 0.41 | 0.02 | 97       | -    | -    | -           |
+| X7 (Ethnic Fracionalization)    | 0.35 | 0.01 | 99       | -    | -    | -           |
+| X8 (Linguistic Fracionalization)| 0.22 | 0.01 | 100      | -    | -    | -           |
+|:------------------------------------------------------------------------------------:|
 *Source: By the author (2019)*
 ```   
 
 ```{r analyze20, eval=FALSE}
 
-\begin{center} Tabel 6 - Rotated Matrix Component (varimax) \end{center}
+              Tabel 6 - Rotated Matrix Component (varimax) 
 
 |    Chi-squared: 97.63  DF: 26    |  **Components**   | Uniquiness        |
 | -------------------------------------------------------------------------|
 |     **Independent Variables**    |   1     |    2    |                   | 
 |:------------------------------------------------------------------------:| 
 | X1 (Corruption Control)          | 0.982   | -0.160  | 0.010             | 
-| X2 (Ethic Firms Behavior)        | 0.911   | -       | 0.165             | 
-| X3 (Property Rigths)             | 0.853   | -       | 0.302             | 
+| X2 (Ethic Firms Behavior)        | 0.911   |    -    | 0.165             | 
+| X3 (Property Rigths)             | 0.853   |    -    | 0.302             | 
 | X4 (Political Stability)         | 0.800   | -0.164  | 0.333             | 
 | X5 (Functioning of government)   | 0.758   | -0.164  | 0.339             | 
 | X6 (Cultural Diversity)          | 0.751   | 0.987   | 0.025             | 
@@ -837,12 +835,12 @@ Annex 1
 
 ```{r analyze21, eval=FALSE}
 
-\begin{center} Tabel 7 - Mean variation of factors \end{center}
+           Tabel 7 - Mean variation of factors 
 
 |             **N: 127**           | **min** |  **max** |   
 |:-----------------------------------------------------:| 
-| F1 (Institutional Efficiency)    | -3.70   | 4.37     |
-| F2 (Ethnic-linguistic Plurality) | -2.87   | 3.32     | 
+| F1 (Institutional Efficiency)    |  -3.70  |   4.37   |
+| F2 (Ethnic-linguistic Plurality) |  -2.87  |   3.32   | 
 |:-----------------------------------------------------:|
 *Source: By the author (2019)*
 
@@ -872,7 +870,7 @@ v) X5 = Factor 2 - ethnic-linguistic plurality
 
 ```{r analyze22, eval=FALSE}
 
-\begin{center} Tabel 8 - Regression Model Variables \end{center}
+        Tabel 8 - Regression Model Variables 
 
 | **Dependent Variable: Civil Liberty 1 - 2**   
 | ---------------------------------------------------|
@@ -889,7 +887,7 @@ v) X5 = Factor 2 - ethnic-linguistic plurality
 
 ```{r analyze23, eval=FALSE}
 
-\begin{center} Tabel 9 - Descriptive Statistics \end{center}
+                        Tabel 9 - Descriptive Statistics 
   
 |                   **VariableS**                   | **Mean** |  min  |  máx  |                 
 |:-------------------- |------------------------------------------------------:| 
