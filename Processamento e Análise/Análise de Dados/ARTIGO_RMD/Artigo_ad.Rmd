@@ -248,6 +248,7 @@ summary(pca1)
 # Loading main Components
 loadings(pca1)
 
+par(mfrow=c(1,2))
 # Checking how many factors should we use
 plot(pca1) # cotovelo em 2 fatores
 
@@ -490,6 +491,7 @@ As for the other assumptions, starting with the models using the categorical dep
 
 ```{r analyze7, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 
+par(mfrow=c(1,2))
 ### Evaluating homoscedasticity ###
 # Residual analysis of multivariate linear regression model 1
 analysis_data$Predicted <- predict(model_1)
@@ -502,7 +504,6 @@ summary(analysis_data$Residuo)
 plot(analysis_data$Predicted, analysis_data$Residuo, pch=21, bg="red", col="red")
 abline(0,0, lty = 2)
 
-
 ### Evaluating homoscedasticity ###
 # Residual analysis of multivariate linear regression model 2
 analysis_data_2$Predicted <- predict(model_2)
@@ -514,6 +515,7 @@ summary(analysis_data_2$Residuo)
 # Scatter plot of standard residues - model 2
 plot(analysis_data_2$Predicted, analysis_data_2$Residuo, pch=21, bg="red", col="red")
 abline(0,0, lty = 2)
+
 
 ```
 
@@ -580,6 +582,7 @@ The ninth assumption, can be observed from the analysis of the distribution of t
 
 ### Evaluating waste distribution ###
 # Scatter histogram of two residues model 1
+par(mfrow=c(1,2))
 hist(analysis_data$Residuo, freq=FALSE, ylim=c(0,0.6), main="Distribution of standard errors model 1")
 xfit <- seq(min(analysis_data$Residuo),max(analysis_data$Residuo),length=40) 
 yfit <- dnorm(xfit) 
@@ -599,6 +602,7 @@ In relation to models 3 and 4 that use the continuous dependent variable to meas
 
 ```{r analyze11, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 
+par(mfrow=c(1,2))
 ### Evaluating homoscedasticity ###
 # Residual analysis of the multivariate linear regression model 3
 analysis_data_3$Predicted <- predict(model_3)
@@ -686,6 +690,7 @@ Regarding the ninth assumption, which refers to the distribution of the model re
 
 ```{r analyze14, echo=FALSE, message=FALSE, warning=FALSE}
 
+par(mfrow=c(1,2))
 ### Evaluating waste distribution ###
 # Scatter Histogram of error model 3
 hist(analysis_data_3$Residuo, freq=FALSE, ylim=c(0,0.4), main="Distribution of standard error 3")
@@ -699,6 +704,7 @@ hist(analysis_data_4$Residuo, freq=FALSE, ylim=c(0,0.4), main="Distribution of s
 xfit <- seq(min(analysis_data_4$Residuo),max(analysis_data_4$Residuo),length=40) 
 yfit <- dnorm(xfit) 
 lines(xfit, yfit)
+
 
 ```
 
@@ -798,26 +804,40 @@ Annex 1
 | -----------------
 | **Component**  | StD | Variance % | Acumulated % | STD | Variance % | Acumulated %
 |:------------------------------------------: | 
-| X1 (Corruption Control) | 2.06 | 53 | 53 | 4.64 | 51 | 51
-| X2 (Ethic Firms Behavior) | 1.45 | 26 | 79 | 2.57 | 28 | 80
-| X3 (Property Rigths) | 0.69 | 0.6 | 85 | - |  - | -  
-| X4 (Political Stability) | 0.64 | 0.05 | 90 | - | - | - 
-| X5 (Functioning of government) | 0.60 | 0.04 | 95 | - | - | -
-| X6 (Cultural Diversity) | 0.41 | 0.02 | 07 | - | - | - 
-| X7 (Ethnic Fracionalization) | 0.35 | 0.01 | 100 | - | - | - 
-| X8 (Linguistic Fracionalization) Z 0.772 
+| X1 (Corruption Control) | 2.06 | 53 | 53 | 4.64 | 51 | 51 |
+| X2 (Ethic Firms Behavior) | 1.45 | 26 | 79 | 2.57 | 28 | 80 |
+| X3 (Property Rigths) | 0.69 | 0.6 | 85 | - |  - | - |
+| X4 (Political Stability) | 0.64 | 0.05 | 90 | - | - | - |
+| X5 (Functioning of government) | 0.60 | 0.04 | 95 | - | - | - |
+| X6 (Cultural Diversity) | 0.41 | 0.02 | 07 | - | - | - |
+| X7 (Ethnic Fracionalization) | 0.35 | 0.01 | 100 | - | - | - |
+| X8 (Linguistic Fracionalization) | 0.772 | - | - | - |
 |:------------------------------------------: |
 *Source: By the author (2019)*
 ```   
 
+```{r analyze20, eval=FALSE}
 
-```{r eval=FALSE}
+\begin{center} Tabel 6 - Rotated Matrix Component (varimax) \end{center}
 
-table 6
-
+|  Chi-squared: 97.63  DF: 26 | **Components** | Uniquiness    
+| -----------------
+| **Independent Variables**  | 1 | 2 | blanc | 
+|:------------------------------------------: | 
+| X1 (Corruption Control) | 0.982 | -0.160 | 0.010 | 
+| X2 (Ethic Firms Behavior) | 0.911 | - | 0.165 | 
+| X3 (Property Rigths) | 0.853 | - | 0.302 | 
+| X4 (Political Stability) | 0.800 | -0.164 | 0.333 | 
+| X5 (Functioning of government) | 0.758 | -0.164 | 0.339 | 
+| X6 (Cultural Diversity) | 0.751 | 0.987 | 0.025 | 
+| X7 (Ethnic Fracionalization) | -0.203 | 0.760 | 0.395 | 
+| X8 (Linguistic Fracionalization) | -0.203 | 0.707 | 0.497 |
+|:------------------------------------------: |
+*Source: By the author (2019)*
+  
 ```
 
-```{r analyze 20, eval=FALSE}
+```{r analyze21, eval=FALSE}
 
 \begin{center} Tabel 7 - Mean variation of factors \end{center}
 
@@ -852,7 +872,7 @@ v) X5 = Factor 2 - ethnic-linguistic plurality
 
 
 
-```{r analyze21, eval=FALSE}
+```{r analyze22, eval=FALSE}
 
 \begin{center} Tabel 8 - Regression Model Variables \end{center}
 
@@ -869,7 +889,7 @@ v) X5 = Factor 2 - ethnic-linguistic plurality
 *Source: By the author (2019)*
 ```  
 
-```{r analyze22, eval=FALSE}
+```{r analyze23, eval=FALSE}
 
 \begin{center} Tabel 9 - Descriptive Statistics \end{center}
 
@@ -886,7 +906,7 @@ v) X5 = Factor 2 - ethnic-linguistic plurality
 ```
 
 
-```{r analyze23, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r analyze24, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 
 # Viewing models 1 to 4
 stargazer(model_1, model_2, model_3, model_4, 
