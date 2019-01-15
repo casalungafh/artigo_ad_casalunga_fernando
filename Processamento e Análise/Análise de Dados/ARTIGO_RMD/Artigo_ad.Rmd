@@ -325,10 +325,9 @@ It should also be noted that, in addition to the problems related to the multico
 
 Thus, it is recommended that the researcher elaborate models capable of minimizing the information of the variables and maximizing the number of observations, attention to these procedures helps to increase the degree of reliability and the possibility of generalization of the results.
 
-Specifically, in regression models the dependent variable ($Y$) represents the phenomenon we seek to understand, explain or predict. The constant, ($\alpha$), represents the best estimate of ($Y$) in the absence of independent variables. The independent variables are represented by $X1 ... + X5$, the coefficients ($\beta$) represent the average variation observed in ($Y$) when a certain independent variable is raised in one unit, keeping the others constant. For example, ($X1$) represents the variation observed in ($Y$) by raising ($X1$) in one unit, keeping the remaining variables constant. The model error, ($\epsilon$), represents all that can affect ($Y$), but can not be explained by the model. To fix the interpretation, we chose to present the equation of the mathematical model: 
+Specifically, in regression models the dependent variable ($Y$) represents the phenomenon we seek to understand, explain or predict. The constant, ($\alpha$), represents the best estimate of ($Y$) in the absence of independent variables. The independent variables are represented by $X1 ... + X5$, the coefficients ($\beta$) represent the average variation observed in ($Y$) when a certain independent variable is raised in one unit, keeping the others constant. For example, ($X1$) represents the variation observed in ($Y$) by raising ($X1$) in one unit, keeping the remaining variables constant. The model error, ($\epsilon$), represents all that can affect ($Y$), but can not be explained by the model. To fix the interpretation, we chose to present the equation of the mathematical model:
 
 $Y = \alpha + \beta_1 x + \beta_2 x2 + \beta_3 x3 + \beta_4 x4 + \beta_5 x5 + \epsilon$ 
-
 
 In this study, models 1 and 2 use a categorical dependent variable. For models 3 and 4 a continuous dependent variable is used for comparison purposes, because the literature indicates that we should opt preferentially for the use of quantitative dependent variables, discrete or continuous [@Figueiredo1: p. 61].
 
@@ -716,6 +715,30 @@ Finally, in model 4, we look at the tenth assumption regarding the Central Limit
 
 References {#references .unnumbered}
 ==========
+
+FIGUEIREDO FILHO, D. B. (2011) What to do and what do not do with regression - assumptions and applications of the linear least squares (OLS) models. Revista Política Hoje, Vol.20, n.1.
+_____. (2014). Factor analysis and Linear Regression - the importance of the joint applicability of two data analysis techniques. Revista Eletrônica de Ciência Política, vol 5, n.2.
+
+FIGUEIREDO FILHO, D. B.; SILVA JÚNIOR, J. A. da (2010). Visão além do alcance:
+uma introdução à análise fatorial. Opinião Pública, v. 16, n. 1, p. 160-185.
+
+FIGUEIREDO FILHO, D. B.; PARANHOS, R.; ROCHA, E. C. da; SILVA Jr., J. A da;
+MAIA, R. (2013). Análise de componentes principais para construção de indicadores sociais. Rev.
+Bras. Biom., São Paulo, v.31, n.f1, p.61-78.
+
+PEARSON, Karl (1982). The Grammar of Science. London: J.M. Dent and Sons Ltd
+
+KING, G. (1995). "Replication, Replication." PS: Political Science and Politics, 28: 443-499.
+Available in: <http://gking.harvard.edu/gking/files/replication.pdf>. Acesss in 03.07.2016.
+_______. (1986). "How Not to Lie With Statistics: Avoiding Common Mistakes in Quantitative Political Science." American
+Journal of Political Science, vol 30: 666-687. Availabe in: <http://gking.harvard.edu/files/mist.pdf>. Acess in 03.07.2017.
+
+SCHAWB, A. J. (2007). Eletronic Classroom. Available in:
+<http://www.utexas.edu/ssw/eclassroom/schwab.html> Acess in 22.01.2017.
+
+TABACHNICK, B. and FIDELL, L. (2007). Using multivariate analysis. Needham Heights:
+Allyn & Bacon.
+
 
 Annex 1
 =============
