@@ -264,11 +264,11 @@ abline(1,0, lty=2)
 
 From the way the extracted components and observed variables relate, the next step will be to produce a rotated component matrix. The rotation seeks to facilitate the interpretation of the observed solution without changing its original mathematical properties (TABACHNICK and FIDELL, (2007), apud, [@Figueiredo2: p. 191], the orthogonal rotation assumes that the correlation between the dimensions is zero, indicating that they are statistically independent (orthogonal).
 
-```{r analyze3, eval=FALSE, echo=FALSE}
+```{r analyze3, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 
 # Rotation varimax (pca1 $ rotation)
 # Factor analysis 
-fatorial_varimax <- factanal(analysis_data[, -c(1:4,13:14)],factors=2, rotation="varimax", scores="regression")
+fatorial_varimax <- factanal(analysis_data[, -c(1:4,13:16)],factors=2, rotation="varimax", scores="regression")
 
 ```
 
@@ -748,15 +748,15 @@ Annex 1
                            Tabel 1 - Indicators 
 
 |          **Factor 1**          |          **Factor 2)**                   
-|:-------------------------------|---------------------------------------:| 
+|:-------------------------------|--------------------------------:| 
 | ** Institutional Efficiency    | Ethnic-linguistic Plurality
-|:-------------------------------|---------------------------------------:| 
-| X1 (Corruption Control)        | X6 (Cultural Diversity)                |
-| X2 (Ethic Firms Behavior)      | X7 (Ethnic Fracionalization)           |
-| X3 (Property Rigths)           | X8 (Linguistic Fracionalization)       |
-| X4 (Political Stability)       |                                        |
-| X5 (Functioning of government) |                                        |
-|:-----------------------------------------------------------------------:|
+|:-------------------------------|--------------------------------:| 
+| X1 (Corruption Control)        | X6 (Cultural Diversity)         |
+| X2 (Ethic Firms Behavior)      | X7 (Ethnic Fracionalization)    |
+| X3 (Property Rigths)           | X8 (Linguistic Fracionalization)|
+| X4 (Political Stability)       |                                 |
+| X5 (Functioning of government) |                                 |
+|:----------------------------------------------------------------:|
 *Source: By the author (2019)*
 
 ```
@@ -889,8 +889,6 @@ iv) X4 = Factor 1 - institutional efficiency
 v) X5 = Factor 2 - ethnic-linguistic plurality
 (QOG, Codebok, 2016).
 
-
-
 ```{r analyze22, eval=FALSE}
 
         Tabel 8 - Regression Model Variables 
@@ -904,7 +902,7 @@ v) X5 = Factor 2 - ethnic-linguistic plurality
 | X3 (Accountability)                                |
 | X4 (Institutional Efficiency)                      |
 | X5 (Ethnic-linguistic Plurality)                   |
-|:-------------------------------------------------: |
+|:--------------------------------------------------:|
 *Source: By the author (2019)*
 ```  
 
