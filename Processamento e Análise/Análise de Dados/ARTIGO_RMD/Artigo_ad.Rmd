@@ -14,6 +14,7 @@ journal: ""
 date: "`r Sys.Date()`"
 output: rticles::elsevier_article
 
+
 references:
 - id: Figueiredo1
   title: What to do and what do not do with regression - assumptions and applications of the linear least squares (OLS) models.
@@ -183,17 +184,17 @@ The article explores the data from the "Quality of Government Basic Dataset" (20
 
 [^2]: For a deeper understanding of the assumptions of the techniques used see also: "Factorial Analysis: An Introduction to Data Reduction" rev. eletrônica de Ciência Política V. 5, nº2 (2014); "What to do with regression: assumptions and applications of the linear model (OLS)" rev. eletrônica Política Hoje, vol. 20, n.1 (2011).
 
-Regarding sample size, during the planning of the measurement of variables, four models were chosen, two of them with larger samples (N = 127) (1 and 3) and another two (2 and 4) with smaller samples (N = 51). For the purpose of comparison, we analyzed the results identified in each of these models according to ten assumptions of the regression models indicated by @Figueiredo1,  to present the one that best fits the explanation of our phenomena of interest, civil liberty.
+Regarding sample size, during the variables measurement planning, four models were chosen, two of them with larger samples (N = 127) (1 and 3) and another two (2 and 4) with smaller samples (N = 51). For the purpose of comparison, we analyzed the results identified in each of these models according to ten assumptions of the regression models indicated by @Figueiredo1,  to present the one that best fits the explanation of our phenomena of interest, civil liberty.
 
 Thus, the unit of analysis of this study is the countries, models 1 and 3 have information for 51 of them, while models 2 and 4 have 127 observations. These models differ according to the variation in omitted cases, which occurs due to the absence of data for one of our tested independent variables 'government confidence' which is measured by opinion polls conducted by World Values Surveys in 76 countries.
 
-Furthermore, models 1 and 2 differ from models 3 and 4 as regards the dependent variable used to measure civil liberty. In models 1 and 2 we measured the effects of the independent variables on civil liberty taken as a categorical dependent variable with values varying from 1 to 7 -where 1 represents the countries with the highest and 7 those with the lowest civil liberty-, already with models 3 and 4 we measured the effects of the independent variables on civil liberty as a continuous dependent variable -with values varying from 1 to 10, with 1 being the value assigned to countries with low and 10 with high levels of civil liberty-.
+Furthermore, models 1 and 2 differ from models 3 and 4 in the dependent variable used to measure civil liberty. In models 1 and 2 we measured the effects of the independent variables on civil liberty as a categorical dependent variable with values varying from 1 to 7 -1 represents the countries with the highest and 7 those with the lowest civil liberty-, on the other hand, with models 3 and 4 we measured the effects of the independent variables on civil liberty as a continuous dependent variable -with values varying from 1 to 10, 1 was assigned to being the value assigned to countries with low and 10 with high levels of civil liberty-.
 
-Thus, the article is divided into three sections, the first presents step by step the construction of the democratic inclusiveness index (IDI), composed of two latent variables [^3] named institutional efficiency and ethnic-linguistic plurality which were transformed using the technique of factorial analysis; the second section uses the two factorial indicators that make up our construct as independent variables in four models of multivariate linear regression, to which we add three more variables that we believe exert an intervening effect on our variable of interest, civil liberty; the third section summarizes the results of the four models and the fourth section presents a brief concluding discussion.
+Thus, the article is divided into three sections, the first presents step by step the construction of the democratic inclusiveness index (IDI), composed of two latent variables [^3] named institutional efficiency and ethnic-linguistic plurality which were transformed using the technique of factorial analysis; the second section uses the two factorial indicators that make up our construct as independent variables in four models of multivariate linear regression, to which we add three more variables that we believe exert an intervening effect on our variable of interest, civil liberty; the third section summarizes the results of the four models and the fourth section presents a brief conclusive discussion.
 
 [^3]: Definition of latent variable: corresponds to a variable that contains several variables that theoretically make up the created factor, the way in which it is possible to measure a certain phenomenon of interest @Figueiredo2.
 
-Regarding the transparency and replicability of this study, all statistical analyzes were performed with the aid of RStudio software [^4] to analyze statistical data and RMarkdown [^5] for documentation, computational routines were duly reported through the organization of the TIER protocol [^6] and versioning was done with Github platform [^7], the data and codes for replication of the results were made available in the Dataverse repository of Harvard University. We also chose to prioritize the presentation of the viability of the constructs and the results of the models through a graphical interface, because we believe that in this way we facilitate the reader's understanding of our results, all the tables adjacent to the results are attached.
+About the transparency and replicability of this study, all statistical analyzes were performed with the aid of RStudio software [^4] to analyze statistical data and RMarkdown [^5] for documentation, computational routines were duly reported through the organization of the TIER protocol [^6] and versioning was done with Github platform [^7], the data and codes for replication of the results were made available in the Dataverse repository of Harvard University. We also chose to prioritize the presentation of the viability of the constructs and the results of the models through a graphical interface, because we believe it facilitates the readers comprehension, in this sense all the tables follow attached.
 
 [^4]: RSTUDIO, version 1.1.463. Available in <https://www.rstudio.com/products/>. Acess in 15.12.2018.
 [^5]: RMarkdown, version 1.11. Availabe in <https://rmarkdown.rstudio.com/>. Acess in 15.12.2018.
@@ -205,13 +206,13 @@ Sections
 
 ## Section 1: Transformation of independent parameters into latent variables.
 
-The analysis of this study follows an exploratory pattern of data, a technique recommended for research in the initial stages, according to this perspective, the following multicollinear variables were identified: X1) control of corruption; X2) ethical behavior of firms; X3) property rights; X4) political stability; X5) government functioning; X6) cultural diversity; X7) ethnic fractionalization; and X8) linguistic fractionalization. Due to the high degree of correlation between these variables, it is advisable to transform its main components into latent variables, composed of the main information present in each of them in a synthetic way, the technique used to carry out the transformation is called factorial analysis [^8], and will be developed below.
+The analysis of this study follows an exploratory pattern of data, a technique recommended for begginer researches, according to this perspective, the following multicollinear variables were identified: X1) control of corruption; X2) ethical behavior of firms; X3) property rights; X4) political stability; X5) government functioning; X6) cultural diversity; X7) ethnic fractionalization; and X8) linguistic fractionalization. Due to the high degree of correlation between these variables, it is advisable to transform its main components into latent variables, composed of the main information present in each of them in a synthetic way, the technique used to carry out the transformation is called factorial analysis [^8], and will be developed below.
 
 [^8]: Factor analysis as a data reduction technique is used to construct indexes that synthesize information from a large number of variables into a smaller number of factors / components. The correlation pattern observed among the original variables is condensed into a single variable that contains the factors in common between them @Figueiredo1.
 
 Thus, factor construction depends on the level of correlation between the selected independent variables. This is because the factorial analysis uses the common variance between the correlated variables ($X1, X2, X3 ... X8$) to construct a factorial indicator that contain information of all the observed variables divided into latent factors, so with this technique we estimate linear combinations of the original variables from the variance in the correlation pattern between the variables.
 
-In relation to the correlation between the independent variables that compose the factors that will be constructed, the literature recommends that most of the coefficients be higher than ($R \ge 0.300$), independent of the signal, in this way, "the higher the level of correlation between the the most appropriate variables will be the different techniques of data reduction "(TABACHNICK and FIDELL, (2007), apud [@Figueiredo2: p. 190]. [^9] 
+In respect to the correlation between the independent variables that compose the factors that will be constructed, the literature recommends that most of the coefficients be higher than ($R \ge 0.300$), regardless of the signal, in this sense, "the higher the level of correlation between the the most appropriate variables will be the different techniques of data reduction "(TABACHNICK and FIDELL, (2007), apud [@Figueiredo2: p. 190]. [^9] 
 
 Graph 1 represents the high correlation pattern among the variables, indicating that the matrix of data is adequate to the use of factorial analysis.
 
@@ -231,11 +232,11 @@ ggplot(data = melted_cormat,
 
 ```
 
-In the annex, the descriptive statistics of the independent variables ($X1... + X8$) used to compose the factors are presented in detail, tables 1 and 2 present the indicators that were used in the construction of the factorial indicators 'Institutional Efficiency' (factor 1) and 'Ethnic-linguistic Plurality' (factor 2).
+On appendix, the descriptive statistics of the independent variables ($X1... + X8$) used to compose the factors are presented in detail, tables 1 and 2 present the indicators that were used in the construction of the factorial indicators 'Institutional Efficiency' (factor 1) and 'Ethnic-linguistic Plurality' (factor 2).
 
 Tables 3 and 4 present, respectively, the adequacy statistics of the sample and the communalities. At Table 3 we have the adjusted Kaiser-Meyer-Olkin (KMO) statistic that indicates the proportion of the variance attributed to the factors that will be transformed, the indicator varies from 0 to 1, the higher the assumed value, the more accurate is the result of the analysis factorial. In our analysis the ($KMO = 0.860$) indicates that we can proceed with the application of the technique.
 
-Graph 2 shows the total variance of each factor that will be transformed, the variability of the variables and the accumulated percentage of each variable extracted for the construction of the factors, while graph 3, contains the information in a scree plot. Both objectively represent how many factors are to be extracted, the dotted line signals the cut level of the Kaiser rule, the abrupt drop signals for transformation of the independent variables into two constructs.
+Graph 2 shows the total variance of each factor that will be transformed, the variability of the variables and the accumulated percentage of each variable extracted for the construction of the factors. In Graph 3 the information is in a scree plot. Objectively, both of them indicate the amount of factors that should be extracted; the dashed line represents the cutting line of Kaiser rule; and, the abrupt drop signals a transformation on the independent variables into two constructs.
 
 ```{r analyze2, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 
@@ -264,7 +265,7 @@ abline(1,0, lty=2)
 
 ```
 
-From the way the extracted components and observed variables relate, the next step will be to produce a rotated component matrix. The rotation seeks to facilitate the interpretation of the observed solution without changing its original mathematical properties (TABACHNICK and FIDELL, (2007), apud, [@Figueiredo2: p. 191], the orthogonal rotation assumes that the correlation between the dimensions is zero, indicating that they are statistically independent (orthogonal).
+Have seen that the extracted components and observed variables relate, the next step is be to produce a rotated component matrix. The rotation seeks to facilitate the interpretation of the observed solution without changing its original mathematical properties (TABACHNICK and FIDELL, (2007), apud, [@Figueiredo2: p. 191], the orthogonal rotation assumes that the correlation between the dimensions is zero, indicating that they are statistically independent (orthogonal).
 
 ```{r analyze3, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 
@@ -274,11 +275,11 @@ fatorial_varimax <- factanal(analysis_data[, -c(1:4,13:16)],factors=2, rotation=
 
 ```
 
-When applying the technique of factorial analysis we determine the type of rotation (orthogonal varimax), and the amount of factors that must be extracted, in this case, two. Thus, the two factors that will be constructed will be composed of two components, the first representing 51% and the second 28% of the total variance of the independent variables. Together the two accumulated values add up to 80% of the total information of the independent variables. 
+When applying the technique of factorial analysis we determine the type of rotation (orthogonal varimax), and the amount of factors that must be extracted, in this case, two. Thus, the two factors that will be constructed will be composed of two components, the first representing 51% and the second 28% of the total variance of the independent variables. Together they add up to 80% of the total information of the independent variables. 
 
-In the annex, table 5 summarizes the results of the accumulated variance, table 6 present the rotational component matrix of the two components, the uniqueness of the variables, the degree of freedom and the chi-square test of the factorial analysis and table 7 shows the average variation of the factors created, 'Institutional Efficiency' and 'Plurality Ethnic-linguistic' databases containing information for 127 countries in the QOG database.
+In appendix, table 5 summarizes the results of the accumulated variance, table 6 present the rotational component matrix of the two components, the uniqueness of the variables, the degree of freedom and the chi-square test of the factorial analysis and table 7 shows the average variation of the factors created, 'Institutional Efficiency' and 'Plurality Ethnic-linguistic' databases containing information for 127 countries in the QOG database.
 
-With the ownership of the transformed factors, they become a construct, or indicator that we call Inclusive Democracy Index (IDI). To better identify the operationalization of these factors in our construct, we represent through the graphical interface the dispersion of all the countries of our database according to the two latent variables transformed.
+In possession of the transformed factors they become a index that we call Inclusive Democracy Index (IDI). To better identify the operationalization of these factors, we represent through a graphical interface the dispersion of all the countries of our database according to the two latent variables transformed.
 
 
 ```{r analyze4, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
@@ -307,7 +308,7 @@ geom_smooth(method='lm')
 
 ```
 
-In this way, we can identify the analysis units by quadrant. In the quadrant are countries with low institutional efficiency and high ethnic-linguistic plurality; already quadrant 2 presents countries with high ethnic-linguistic plurality and high institutional efficiency; in quadrant 3 are countries with low institutional efficiency and low ethnic-linguistic plurality; and the quadrant 4 countries with high institutional efficiency and low ethnic-linguistic plurality.
+In this sense, we can identify the analysis units by quadrant. In quadrant 1 are the countries with low institutional efficiency and high ethnic-linguistic plurality; quadrant 2 gathers the countries with high ethnic-linguistic plurality and high institutional efficiency; in quadrant 3 are the countries with low institutional efficiency and low ethnic-linguistic plurality; and, in the quadrant 4 are the countries with high institutional efficiency and low ethnic-linguistic plurality.
 
 In the next section, we will use the two factors transformed in this section as independent variables in four multivariate regression models, in order to measure the effects produced on our variable of interest, civil liberty, in the countries of the QOG database (2016).[^10]
 
@@ -327,7 +328,7 @@ Regarding the purpose of this study, to demonstrate the importance of the joint 
 
 It should also be noted that, in addition to the problems related to the multicollinear independent variables, the use of small samples can also affect the results of the linear regression models, to test this assumption we used models with 51 and 127 cases.
 
-Thus, it is recommended that the researcher elaborate models capable of minimizing the information of the variables and maximizing the number of observations, attention to these procedures helps to increase the degree of reliability and the possibility of generalization of the results.
+Thus, it is recommended that the researcher elaborates models capable of minimizing the information of the variables and maximizing the number of observations, attention to these procedures helps to increase the degree of reliability and the chance of generalization of the results.
 
 Specifically, in regression models the dependent variable ($Y$) represents the phenomenon we seek to understand, explain or predict. The constant, ($\alpha$), represents the best estimate of ($Y$) in the absence of independent variables. The independent variables are represented by $X1 ... + X5$, the coefficients ($\beta$) represent the average variation observed in ($Y$) when a certain independent variable is raised in one unit, keeping the others constant. For example, ($X1$) represents the variation observed in ($Y$) by raising ($X1$) in one unit, keeping the remaining variables constant. The model error, ($\epsilon$), represents all that can affect ($Y$), but can not be explained by the model. To fix the interpretation, we chose to present the equation of the mathematical model:
 
@@ -335,9 +336,9 @@ $Y = \alpha + \beta_1 x + \beta_2 x2 + \beta_3 x3 + \beta_4 x4 + \beta_5 x5 + \e
 
 In this study, models 1 and 2 use a categorical dependent variable. For models 3 and 4 a continuous dependent variable is used for comparison purposes, because the literature indicates that we should opt preferentially for the use of quantitative dependent variables, discrete or continuous [@Figueiredo1: p. 61].
 
-In annex (2) we describe the measurement of the dependent variable and the other independent variables used in the model to explain our phenomenon of interest, civil ciberty. Table 8 shows the dependent variable ($Y$) that the model intends to explain from the independent variables ($X1, X2, .. + X5$). Also, the hypothetical example seeks to understand the impact of the independent variables ($X1, X2 ... + X5$) on the dependent variable ($Y$).
+In appendix (2) we describe the measurement of the dependent variable and the other independent variables used in the model to explain our phenomenon of interest, civil ciberty. Table 8 shows the dependent variable ($Y$) that the model intends to explain from the independent variables ($X1, X2, .. + X5$). Also, the hypothetical example seeks to understand the impact of the independent variables ($X1, X2 ... + X5$) on the dependent variable ($Y$).
 
-The applied models seek, therefore, to understand the causal effect on the civil Liberty produced by the variation of public confidence in government, favoritism in official government decisions, accountability, institutional efficiency and ethnic-linguistic plurality, the last two are the multicollinear factors that make up a construct denominated index (IDI) produced in section 1 of this article.
+The applied models seek, therefore, to understand the causal effect on the civil liberty produced by the variation of public confidence in government, favoritism in official government decisions, accountability, institutional efficiency and ethnic-linguistic plurality, the last two are the multicollinear factors that make up a construct denominated index (IDI) produced in section 1 of this article.
 
 In this way the multivariate linear regression models attempt to measure the degree of civil liberty, respectively, in 51 (models 1 and 3) and 127 countries (models 2 and 4) of the QOG Basic database (2016) through four regression models linear multivariate analysis. In the annex, table 9 summarizes the descriptive statistics of the independent variables.
 Thus, the hypotheses that will be tested with the multivariate models are listed, our objective is to observe if the effect produced by the independent variables on civil liberty is significant and its magnitude. Therefore, it is stated:
@@ -483,7 +484,7 @@ abline(v=0, lty=2, col="red")
 
 ```
 
-In light of our findings, at first glance we may be led to assume that model 1 that presents the highest degree of explanation of the cases in our data matrix is the one that best explains the phenomenon of civil liberty. However, in the next section, we discuss the robustness of the four models against the ten assumptions of the regression models to know if we can confirm or not the expectations regarding model 1.
+Taking into account of our findings, at first glance we may be led to assume that model 1 that presents the highest degree of explanation of the cases in our data matrix is the one that best explains the phenomenon of civil liberty. However, in the next section, we discuss the robustness of the four models against the ten assumptions of the regression models to know if we can confirm or not the expectations regarding model 1.
 
 
 ## Section 4 Discussion and Conclusion
@@ -600,9 +601,9 @@ lines(xfit, yfit)
 
 ```
 
-The tenth and final assumption regarding the Central Limit Theorem that proposes to increase the number of cases against the estimated parameters was tested by increasing the number of cases from 51 (model 1) to 127 (model 2), removing the variable confidence in government. In the annex, the result observed in table 10 indicates that the explanatory power of model 2 is smaller when compared to the previous one in terms of $R-adjusted$ and degrees of freedom, therefore, in this case the increase in the number of cases had little influence on the results of the model 2.
+The tenth and final assumption regarding the Central Limit Theorem that proposes to increase the number of cases against the estimated parameters was tested by increasing the number of cases from 51 (model 1) to 127 (model 2), removing the variable confidence in government. In the appendix, the result observed in table 10 indicates that the explanatory power of model 2 is smaller then the previous one in terms of $R-adjusted$ and degrees of freedom, therefore, in this case the increase in the number of cases had little influence on the results of the model 2.
 
-In relation to models 3 and 4 that use the continuous dependent variable to measure civil liberty, the analysis indicates homocedastic distribution of the residues against the predicted values. Graphs 15 and 16 summarize the uniform dispersion of the difference between the observed results and the results predicted by the models, therefore both satisfy the fourth assumption.
+In relation to models 3 and 4 that use the continuous dependent variable to measure civil liberty, the analysis indicates homoscedastic distribution of the residues against the predicted values. Graphs 15 and 16 summarize the uniform dispersion of the difference between the observed results and the results predicted by the models, therefore both satisfy the fourth assumption.
 
 ```{r analyze11, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 
@@ -674,7 +675,7 @@ ncvTest(model_4)
 
 ```
 
-Again the sixth assumption that supports the absence of correlation between the independent variables and the error term can not be satisfied by all variables of models 3 and 4. As shown in graphs 17 and 18, in model 3 the distribution of the error term by individual parameter follows a heteroskedastic pattern for the variables institutional efficiency and accountability, but the distribution of the variables trust in government, favoritism in government decisions, and ethnic-religious plurality approximate a homoscedal pattern, already in model 4, with greater number of cases and without the variable trust in government, only the variable ethnic-linguistic plurality approaches a homoskedastic distribution, the other three variables follow a heteroscedastic pattern.
+Again the sixth assumption that supports the absence of correlation between the independent variables and the error term can not be satisfied by all variables of models 3 and 4. As shown in graphs 17 and 18, in model 3 the distribution of the error term by individual parameter follows a heteroscedastic pattern for the variables institutional efficiency and accountability, but the distribution of the variables trust in government, favoritism in government decisions, and ethnic-religious plurality approximate a homoscedastic pattern, already in model 4, with greater number of cases and without the variable trust in government, only the variable ethnic-linguistic plurality approaches a homoscedastic distribution, the other three variables follow a heteroscedastic pattern.
 
 ```{r analyze13,echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 
@@ -689,7 +690,7 @@ avPlots(model_4, main="Graph 18. Added-Variable Plots")
 
 ```
 
-Similar to models 1 and 2, the seventh and eighth assumptions of the regression models were satisfied from the exploratory analysis of the data, using the factorial analysis technique. We chose to use two latent variables as functional mechanisms to avoid the bias imposed by possible omitted variables and to condense information from highly correlated variables into a single factorial indicator.
+Similar to models 1 and 2, the seventh and eighth assumptions of the regression models were satisfied from the exploratory analysis of the data, using the factorial analysis technique. We chose to use two latent variables as functional mechanisms to avoid bias of possible omitted variables and to condense information from highly correlated variables into a single factorial indicator.
 
 Regarding the ninth assumption, which refers to the distribution of the model residues, the histograms presented in graphs 19 and 20 indicate a symmetrical distribution for the values predicted against the standardized residues in both models, which increases the validity of the inferences made by the models which use the continuous dependent variable.
 
@@ -746,7 +747,7 @@ TABACHNICK, B. and FIDELL, L. (2007). Using multivariate analysis. Needham Heigh
 Allyn & Bacon.
 
 
-Annex 1
+Appendix 1
 =============
 
 ```{r analyze15, eval=FALSE}
@@ -875,7 +876,7 @@ Tabel 3 - Sample Suitability Tests
 
 ```
 
-Annex 2
+Appendix 2
 ================
 
 Dependent variable:
@@ -927,6 +928,7 @@ v) X5 = Factor 2 - ethnic-linguistic plurality
 *Source: By the author (2019)*
 
 ```
+
 
 
 ```{r analyze24, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
