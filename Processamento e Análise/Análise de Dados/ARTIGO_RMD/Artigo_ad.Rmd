@@ -44,7 +44,7 @@ references:
 
 
 abstract: |
-  The article uses a quantitative exploratory methodology to analyze the 'Quality of Government Institute' Basic Dataset (2016). It presents the application of four multivariate models that combine two techniques of data analysis, factorial and regression, in order to verify the validity of the causal inference of these models against the assumptions indicated in the literature. At the same time, it shows how the combination of these two techniques helps the researcher to identify in a robust way the independent causal effects that affect the phenomenon of researcher interest, in our case the civil liberty in Contemporary States.  The contribution of this article to the field of multivariate models applied to the social sciences is given to shed light on the importance of verifying the ten assumptions of linear regression models, in this sense, we stated that the more robust the model applied, greater will be the validity of the causal inference that is intended to establish.
+  The article uses a quantitative exploratory methodology to analyze the 'Quality of Government Institute' Basic Dataset (2016). It presents the application of four multivariate models that combine two techniques of data analysis, factorial and regression, in order to verify the validity of the causal inference of these models against the assumptions indicated by literature. At the same time, it shows how the combination of these two techniques helps the researcher to identify in a robust way the independent causal effects that affect the phenomenon of researcher interest, in our case the civil liberty in Contemporary States.  The contribution of this article to the field of multivariate models applied to the social sciences is to shed light on the importance of verifying the ten assumptions of linear regression models, in this sense, we stated that the more robust the model applied, greater will be the validity of the causal inference that is intended to establish.
 
 
 ---
@@ -253,7 +253,7 @@ loadings(pca1)
 par(mfrow=c(1,2))
 
 # Checking how many factors should we use
-plot(pca1, main="Graph 2. 2 Factors") # cotovelo em 2 fatores
+plot(pca1, main="Graph 2. Factors") # cotovelo em 2 fatores
 
 # Selecting the 2 factors - template 1
 analysis_data$fac1 <- pca1$scores[,1]
