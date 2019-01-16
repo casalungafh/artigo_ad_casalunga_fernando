@@ -44,7 +44,7 @@ references:
 
 
 abstract: |
-  The article uses a quantitative exploratory methodology to analyze the 'Quality of Government' database. We used Basic Dataset (2016) to present the application of four multivariate models that combine two techniques of data analysis, factorial and regression, in order to verify the validity of the causal inference of these models against the assumptions indicated in the literature. At the same time, it shows how the combination of these two techniques helps the researcher to identify in a robust way the independent causal effects that affect the phenomenon of researcher interest, in our case the civil liberty in Contemporary States.
+  The article uses a quantitative exploratory methodology to analyze the 'Quality of Government Institute' Basic Dataset (2016). It presents the application of four multivariate models that combine two techniques of data analysis, factorial and regression, in order to verify the validity of the causal inference of these models against the assumptions indicated in the literature. At the same time, it shows how the combination of these two techniques helps the researcher to identify in a robust way the independent causal effects that affect the phenomenon of researcher interest, in our case the civil liberty in Contemporary States.  The contribution of this article to the field of multivariate models applied to the social sciences is given to shed light on the importance of verifying the ten assumptions of linear regression models, in this sense, we stated that the more robust the model applied, greater will be the validity of the causal inference that is intended to establish.
 
 
 ---
@@ -715,6 +715,11 @@ lines(xfit, yfit)
 ```
 
 Finally, in model 4, we look at the tenth assumption regarding the Central Limit Theorem that proposes to increase the number of cases against the estimated parameters, in annex the table 11 indicates that when we increase the number of cases from 51 in model 2, to 127 in model 4, removing the variable trust in government, the result indicates that the explanatory power of model 4 is greater when compared to the previous one in terms of $R-adjusted$, it is observed that in this model the favoritism variable in the government decisions has effect significant difference on civil liberty, unlike model 2 where there is no significance for this variable, in addition, the standard error of the statistically significant independent variables was reduced, therefore, the increase in the number of cases had a great influence on the robustness of the results of model 4.
+
+Thus, the robustness tests indicated that model 1 is inferior to models 3 and 4, difference given by the use of the continuous dependent variable versus the categorical one of the first model. Based on the tests, it was identified that model 4 presented the most reliable results using the verified assumptions.
+
+To conclude, based on the results of the four models presented in this article, we prove the importance of using the techniques of factorial analysis and linear regression to identify the causal effects that produce a certain phenomenon of interest of the researcher, in our case civil liberty. In this sense, we reaffirm that the more robust the applied model, the greater the validity of the causal inference that one intends to establish.
+
 
 
 
